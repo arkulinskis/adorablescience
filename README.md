@@ -1,88 +1,61 @@
-# About This [Anvil](https://anvil.works/?utm_source=github:app_README) App
+# 🧪 Adorable Science
 
-### Build web apps with nothing but Python.
+Fuzzy-hearted, well-sourced science news. Anyone can sign up and write articles; **nothing is published
+until a Lab Director (admin) reviews and approves it**. Approved articles appear on the front page.
 
-The app in this repository is built with [Anvil](https://anvil.works?utm_source=github:app_README), the framework for building web apps with nothing but Python. You can clone this app into your own Anvil account to use and modify.
+Built with [Anvil](https://anvil.works). Clone it into Anvil with **"Clone from GitHub"** and press **Run**.
 
-Below, you will find:
-- [How to open this app](#opening-this-app-in-anvil-and-getting-it-online) in Anvil and deploy it online
-- Information [about Anvil](#about-anvil)
-- And links to some handy [documentation and tutorials](#tutorials-and-documentation)
+## How it works
 
-## Opening this app in Anvil and getting it online
+| Stage | Name in the app | Who sees it |
+|---|---|---|
+| `draft` | 🧫 In the Petri dish | The writer only |
+| `pending` | 🔬 Under the microscope | The writer + Lab Directors (review queue) |
+| `rejected` | 🧪 Needs more data | The writer, with the reviewer's note |
+| `published` | 🚀 Published | Everyone, on the front page |
 
-### Cloning the app
+- **Editing a published article** takes it off the front page until it's approved again.
+- **Sources are strongly encouraged:** a live citation meter, one-click `[1]` inline citations that link
+  straight to the source, a "no sources?" warning on submit, an "Unsourced" badge on published articles,
+  and an automatic checklist for reviewers (source count, inline citations, https, news-only sources…).
+- **Writer profiles** (`#writer/<id>`) show a writer's published articles, stats and badges.
+  The **Writers** page lists everyone with at least one published article.
+- **Boops** 🐾 are likes. Lab Directors can feature an article at the top of the front page.
 
-Go to the [Anvil Editor](https://anvil.works/build?utm_source=github:app_README) (you might need to sign up for a free account) and click on “Clone from GitHub” (underneath the “Blank App” option):
+## First run: becoming a Lab Director
 
-<img src="https://anvil.works/docs/version-control/img/git/clone-from-github.png" alt="Clone from GitHub"/>
+The **first person to sign in becomes the first Lab Director**, so sign up yourself right after
+publishing. After that, Directors can promote others from **Review desk → Lab members**. You can also tick
+`is_admin` for a user in the Data Tables editor.
 
-Enter the URL of this GitHub repository. If you're not yet logged in, choose "GitHub credentials" as the authentication method and click "Connect to GitHub".
+Sign-up uses email + password and asks new users to confirm their email address (Users service settings).
 
-<img src="https://anvil.works/docs/version-control/img/git/clone-app-from-git.png" alt="Clone App from Git modal"/>
+## Code map
 
-Finally, click "Clone App".
+```
+client_code/
+  Main/            startup form: header, footer, routing (#article/12, #writer/abc, #write, #review…)
+  as_ui.py         HTML building blocks, the Bea-the-Beaker mascot, toasts and dialogs
+  api.py           server calls; friendly server errors become LabError
+  lab_config.py    shared constants (fields, evidence levels, statuses); also used by the server
+  page_home.py     front page          page_article.py  reading an article
+  page_editor.py   writing desk        page_lab.py      "My lab": my articles by status
+  page_writers.py  roster, profile, edit profile
+  page_auth.py     sign in / sign up   page_review.py   Lab Director review desk
+server_code/
+  Lab.py           @api decorator, permissions, row → dict helpers
+  Render.py        safe Markdown-style renderer for article bodies (escapes everything first)
+  Accounts.py      me, profiles, writers, admin roles
+  Articles.py      front page, read, save/submit, withdraw, delete, boops
+  Review.py        review queue, approve / send back, feature, take down
+theme/assets/theme.css   the whole look
+```
 
-This app will then be in your Anvil account, ready for you to run it or start editing it! **Any changes you make will be automatically pushed back to this repository, if you have permission!** You might want to [make a new branch](https://anvil.works/docs/version-control?utm_source=github:app_README).
+Pages build HTML in Python; `Main` sends clicks on elements with `data-action="…"` back to the
+current page's `on_action()`. All server functions return plain dicts, so writer emails and unpublished
+drafts never reach other people's browsers.
 
-### Running the app yourself:
+### Article formatting
 
-Find the **Run** button at the top-right of the Anvil editor:
-
-<img src="https://anvil.works/docs/img/run-button-new-ide.png"/>
-
-
-### Publishing the app on your own URL
-
-Now you've cloned the app, you can [deploy it on the internet with two clicks](https://anvil.works/docs/deployment/quickstart?utm_source=github:app_README)! Find the **Publish** button at the top-right of the editor:
-
-<img src="https://anvil.works/docs/deployment/img/environments/publish-button.png"/>
-
-When you click it, you will see the Publish dialog:
-
-<img src="https://anvil.works/docs/deployment/img/quickstart/empty-environments-dialog.png"/>
-
-Click **Publish This App**, and you will see that your app has been deployed at a new, public URL:
-
-<img src="https://anvil.works/docs/deployment/img/quickstart/default-public-environment.png"/>
-
-That's it - **your app is now online**. Click the link and try it!
-
-## About Anvil
-
-If you’re new to Anvil, welcome! Anvil is a platform for building full-stack web apps with nothing but Python. No need to wrestle with JS, HTML, CSS, Python, SQL and all their frameworks – just build it all in Python.
-
-<figure>
-<figcaption><h3>Learn About Anvil In 80 Seconds👇</h3></figcaption>
-<a href="https://www.youtube.com/watch?v=3V-3g1mQ5GY" target="_blank">
-<img
-  src="https://anvil-website-static.s3.eu-west-2.amazonaws.com/anvil-in-80-seconds-YouTube.png"
-  alt="Anvil In 80 Seconds"
-/>
-</a>
-</figure>
-<br><br>
-
-[![Try Anvil Free](https://anvil-website-static.s3.eu-west-2.amazonaws.com/mark-complete.png)](https://anvil.works?utm_source=github:app_README)
-
-To learn more about Anvil, visit [https://anvil.works](https://anvil.works?utm_source=github:app_README).
-
-## Tutorials and documentation
-
-### Tutorials
-
-If you are just starting out with Anvil, why not **[try the 10-minute Feedback Form tutorial](https://anvil.works/learn/tutorials/feedback-form?utm_source=github:app_README)**? It features step-by-step tutorials that will introduce you to the most important parts of Anvil.
-
-Anvil has tutorials on:
-- [Building Dashboards](https://anvil.works/learn/tutorials/data-science#dashboarding?utm_source=github:app_README)
-- [Multi-User Applications](https://anvil.works/learn/tutorials/multi-user-apps?utm_source=github:app_README)
-- [Building Web Apps with an External Database](https://anvil.works/learn/tutorials/external-database?utm_source=github:app_README)
-- [Deploying Machine Learning Models](https://anvil.works/learn/tutorials/deploy-machine-learning-model?utm_source=github:app_README)
-- [Taking Payments with Stripe](https://anvil.works/learn/tutorials/stripe?utm_source=github:app_README)
-- And [much more....](https://anvil.works/learn/tutorials?utm_source=github:app_README)
-
-### Reference Documentation
-
-The Anvil reference documentation provides comprehensive information on how to use Anvil to build web applications. You can find the documentation [here](https://anvil.works/docs/overview?utm_source=github:app_README).
-
-If you want to get to the basics as quickly as possible, each section of this documentation features a [Quick-Start Guide](https://anvil.works/docs/overview/quickstarts?utm_source=github:app_README).
+`## Heading` · `**bold**` · `*italic*` · `- bullet` · `1. numbered` · `> quote` ·
+`!! lab note` (callout) · `[text](https://link)` · `[1]` cites source #1
