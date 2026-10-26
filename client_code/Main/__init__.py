@@ -18,6 +18,7 @@ import anvil.users
 from anvil.js import window
 
 from .. import api
+from .. import legal
 from .. import as_ui as ui
 from .. import lab_config as C
 from ..page_home import HomePage
@@ -78,6 +79,7 @@ class Main(MainTemplate):
             print("get_me failed:", e)
             self.me = None
         self.paint_header()
+        legal.refresh_soon()  # Privacy & Terms: records the sign-up tick, or reminds people to review
 
     # ---------- routing ----------
 
@@ -191,6 +193,7 @@ class Main(MainTemplate):
     <button type="button" class="as-linkbtn" data-action="new-fact">another!</button></div>
   <p>🥽 <b>Adorable Science</b> · Every article is reviewed by a Lab Director before it's published.
   Every claim should wear its citations.</p>
+  <p><button type="button" class="as-linkbtn" data-lk-open="overview">Privacy &amp; Terms</button></p>
 </div>"""
 
     # ---------- events ----------
@@ -231,6 +234,7 @@ class Main(MainTemplate):
         elif action == "signout":
             anvil.users.logout()
             self.me = None
+            legal.signed_out()
             ui.toast("Signed out. Come back soon! 👋")
             self.paint_header()
             self.go("")

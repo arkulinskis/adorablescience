@@ -192,6 +192,18 @@ db_schema:
       client_hidden: true
       name: is_admin
       type: bool
+    - admin_ui: {order: 14, width: 200}
+      client_hidden: false
+      name: legal_version
+      type: string
+    - admin_ui: {order: 15, width: 200}
+      client_hidden: false
+      name: legal_accepted_at
+      type: datetime
+    - admin_ui: {order: 16, width: 200}
+      client_hidden: false
+      name: legal_source
+      type: string
     indexes: []
     server: full
     title: Users
@@ -202,6 +214,7 @@ metadata:
 name: Adorable Science
 native_deps:
   head_html: |
+    <script src="_/theme/legal-kit.js?v=500108a833"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

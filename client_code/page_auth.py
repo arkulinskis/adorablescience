@@ -2,6 +2,7 @@
 import anvil.users
 
 from . import as_ui as ui
+from . import legal
 from .as_ui import esc
 
 MODES = {
@@ -54,6 +55,7 @@ class AuthPage(ui.Page):
     <label class="as-field"><span class="as-field-label">Email</span>
       <input type="email" name="email" required autocomplete="email" value="{esc(self.email)}"></label>
     {password}
+    {legal.consent_field() if self.mode == 'signup' else ''}
     <button type="submit" class="as-btn as-btn-primary as-btn-block">{cta}</button>
     <div class="as-auth-switch">{switch}</div>
   </form>
@@ -89,6 +91,8 @@ class AuthPage(ui.Page):
                 self.render()
                 return
             if self.mode == "signup":
+                if not legal.consent_ok(form):
+                    return
                 if len(password) < 8:
                     ui.toast("Please use at least 8 characters for your password.", "bad")
                     return
