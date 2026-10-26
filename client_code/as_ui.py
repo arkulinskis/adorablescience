@@ -115,8 +115,7 @@ def empty(title, text="", cta="", mood="happy"):
 
 
 def loading(text="Calibrating the microscopes…"):
-    face = mascot("as-mascot-md as-wobble", "wow")
-    return f"""<div class="as-loading">{face}<p>{esc(text)}</p></div>"""
+    return f"""<div class="as-loading" role="status"><div class="as-loader-art" aria-hidden="true"></div><p>{esc(text)}</p></div>"""
 
 
 def error_block(msg):

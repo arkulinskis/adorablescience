@@ -197,6 +197,7 @@ db_schema:
     title: Users
 metadata:
   description: Fuzzy-hearted, well-sourced science news written by the community and reviewed by Lab Directors.
+  logo_img: asset:favicon.png
   title: Adorable Science
 name: Adorable Science
 native_deps:
