@@ -193,7 +193,7 @@ class Main(MainTemplate):
     <button type="button" class="as-linkbtn" data-action="new-fact">another!</button></div>
   <p>🥽 <b>Adorable Science</b> · Every article is reviewed by a Lab Director before it's published.
   Every claim should wear its citations.</p>
-  <p><button type="button" class="as-linkbtn" data-lk-open="overview">Privacy &amp; Terms</button></p>
+  <p><a class="as-linkbtn" href="https://prepsto.com/#f/7uhztrz" target="_blank" rel="noopener" data-prepsto-open>💡 Suggest an idea</a> · <button type="button" class="as-linkbtn" data-lk-open="overview">Privacy &amp; Terms</button></p>
 </div>"""
 
     # ---------- events ----------
