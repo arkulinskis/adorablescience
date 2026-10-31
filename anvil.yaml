@@ -214,7 +214,7 @@ metadata:
 name: Adorable Science
 native_deps:
   head_html: |
-    <script src="_/theme/legal-kit.js?v=c2d02226df"></script>
+    <script src="_/theme/legal-kit.js?v=795d53212e"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
