@@ -216,7 +216,7 @@ native_deps:
   head_html: |
     <!-- Prepsto feedback panel (the only feedback channel): every Submit feedback link (data-prepsto-open) opens it -->
     <script src="https://prepsto.com/_/theme/widget.js" data-prepsto="7uhztrz" data-button="false" data-label="Submit feedback" async></script>
-    <script src="_/theme/legal-kit.js?v=77a4c2c23a"></script>
+    <script src="_/theme/legal-kit.js?v=0d9e7373f5"></script>
     <!-- seo:start (APP_MAKER/seo: edit seo/apps/adorablescience.json and run seo.py, not here) -->
     <link rel="canonical" href="https://adorablescience.com/">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
