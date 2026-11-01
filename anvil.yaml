@@ -208,15 +208,36 @@ db_schema:
     server: full
     title: Users
 metadata:
-  description: Fuzzy-hearted, well-sourced science news written by the community and reviewed by Lab Directors.
-  logo_img: asset:favicon.png
-  title: Adorable Science
+  description: "Fuzzy-hearted, well-sourced science news written by the community. Anyone can write an article; Lab Directors review every one before it is published."
+  logo_img: "asset:favicon.png"
+  title: "Adorable Science: wholesome, well-sourced science news"
 name: Adorable Science
 native_deps:
   head_html: |
     <!-- Prepsto feedback panel (the only feedback channel): every Submit feedback link (data-prepsto-open) opens it -->
     <script src="https://prepsto.com/_/theme/widget.js" data-prepsto="7uhztrz" data-button="false" data-label="Submit feedback" async></script>
     <script src="_/theme/legal-kit.js?v=77a4c2c23a"></script>
+    <!-- seo:start (APP_MAKER/seo: edit seo/apps/adorablescience.json and run seo.py, not here) -->
+    <link rel="canonical" href="https://adorablescience.com/">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="keywords" content="science news, wholesome science news, good news science, community science writing, sourced science articles, write science articles, cute science stories, science blog, peer-reviewed news community">
+    <meta name="author" content="Arkvital">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Adorable Science">
+    <meta property="og:title" content="Adorable Science: wholesome, well-sourced science news">
+    <meta property="og:description" content="Fuzzy-hearted, well-sourced science news written by the community. Anyone can write an article; Lab Directors review every one before it is published.">
+    <meta property="og:locale" content="en_CA">
+    <meta property="og:url" content="https://adorablescience.com/">
+    <meta property="og:image" content="https://adorablescience.com/_/theme/og-image.png">
+    <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Adorable Science: Fuzzy-hearted, well-sourced science news written by the community">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Adorable Science: wholesome, well-sourced science news">
+    <meta name="twitter:description" content="Fuzzy-hearted, well-sourced science news written by the community. Anyone can write an article; Lab Directors review every one before it is published.">
+    <meta name="twitter:image" content="https://adorablescience.com/_/theme/og-image.png">
+    <link rel="alternate" type="text/plain" title="Adorable Science for AI assistants" href="https://adorablescience.com/llms.txt">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "@id": "https://adorablescience.com/#app", "name": "Adorable Science", "url": "https://adorablescience.com/", "description": "Fuzzy-hearted, well-sourced science news written by the community. Anyone can write an article; Lab Directors review every one before it is published.", "image": "https://adorablescience.com/_/theme/og-image.png", "inLanguage": "en", "publisher": {"@id": "https://arkvital.com/#org"}, "keywords": "science news, wholesome science news, good news science, community science writing, sourced science articles, write science articles, cute science stories, science blog, peer-reviewed news community", "applicationCategory": "EducationalApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript and a modern web browser", "featureList": ["Write science articles with one-click inline citations", "Every article is reviewed by a Lab Director before publishing", "A live citation meter and an Unsourced badge", "Writer profiles with stats and badges", "Boops (likes) and featured articles on the front page"], "audience": {"@type": "Audience", "audienceType": "Science fans, students and writers who want cheerful, sourced science stories"}}, {"@type": "WebSite", "@id": "https://adorablescience.com/#site", "url": "https://adorablescience.com/", "name": "Adorable Science", "publisher": {"@id": "https://arkvital.com/#org"}}, {"@type": "Organization", "@id": "https://arkvital.com/#org", "name": "Arkvital", "url": "https://arkvital.com", "email": "arkvital@outlook.com", "address": {"@type": "PostalAddress", "addressLocality": "Montreal", "addressRegion": "QC", "addressCountry": "CA"}}]}</script>
+    <!-- seo:end -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
