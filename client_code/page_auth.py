@@ -10,6 +10,16 @@ MODES = {
     "signup": ("Join the lab", "Create a free account to write science news for everyone.", "🥼 Create my account"),
     "reset": ("Forgot your password?", "We'll email you a link to set a new one.", "📮 Send reset link"),
 }
+GOOGLE_G = '<svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true" style="flex:none"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>'
+
+
+def _google_step_done():
+    """After login_with_google() gave None: did the person finish the Google window (they just have no account yet)?"""
+    try:
+        import anvil.google.auth
+        return bool(anvil.google.auth.get_user_email())
+    except Exception:
+        return True  # can't tell: go on to sign-up, which asks Google again if needed
 
 
 class AuthPage(ui.Page):
@@ -45,6 +55,10 @@ class AuthPage(ui.Page):
             perks = """<ul class="as-perks"><li>✍️ Write articles about discoveries you love</li>
 <li>🔬 Lab Directors review every article before it's published</li><li>🪪 Get a writer profile with badges</li></ul>"""
         mascot = ui.mascot("as-mascot-md")
+        google = ""
+        if self.mode != "reset":
+            google = ('<p class="as-sub" style="text-align:center;margin:12px 0">or</p>'
+                      '<button type="button" class="as-btn as-btn-block" data-action="google">%sContinue with Google</button>' % GOOGLE_G)
         return f"""<div class="as-auth">
   <div class="as-auth-art">{mascot}</div>
   <form class="as-panel as-auth-card" data-form="auth">
@@ -57,6 +71,7 @@ class AuthPage(ui.Page):
     {password}
     {legal.consent_field() if self.mode == 'signup' else ''}
     <button type="submit" class="as-btn as-btn-primary as-btn-block">{cta}</button>
+    {google}
     <div class="as-auth-switch">{switch}</div>
   </form>
 </div>"""
@@ -67,11 +82,31 @@ class AuthPage(ui.Page):
             el.focus()
 
     def on_action(self, action, arg, el, ev):
+        if action == "google":
+            self._google()
+            return
         if action == "mode":
             self.email = self.val("email")
             self.mode = arg
             self.message = ""
             self.render()
+
+    def _google(self):
+        """Continue with Google: sign in, or create the account on the first visit (sign-up asks for the tick here too)."""
+        if self.mode == "signup" and not legal.consent_ok(self.q("form")):
+            return
+        try:
+            if anvil.users.login_with_google(remember=True) is None:
+                if not _google_step_done() or anvil.users.signup_with_google(remember=True) is None:
+                    ui.toast("Google sign-in was cancelled.", "bad")
+                    return
+        except anvil.users.AccountIsNotEnabled:
+            ui.toast("This account is disabled.", "bad")
+            return
+        except anvil.users.AuthenticationFailed as e:
+            ui.toast(str(e) or "Google sign-in didn't work. Please try again.", "bad")
+            return
+        self._welcome()
 
     def on_submit(self, name, form, ev):
         email = self.val("email").strip()
@@ -122,6 +157,9 @@ class AuthPage(ui.Page):
         except anvil.users.AuthenticationFailed:
             ui.toast("That email and password don't match.", "bad")
             return
+        self._welcome()
+
+    def _welcome(self):
         self.app.refresh_me()
         me = self.app.me or {}
         ui.toast("Welcome to the lab, %s %s!" % (me.get("name", "scientist"), me.get("avatar", "")))

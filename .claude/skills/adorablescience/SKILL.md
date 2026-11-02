@@ -54,6 +54,7 @@ theme/assets/theme.css     the whole look; beaker-spinner.svg; favicon
 
 ## Gotchas
 
+- **Continue with Google** (client_code/page_auth.py `_google`): `login_with_google()` returns None for someone without an account, so the code then calls `signup_with_google()`; on the sign-up view it needs the Privacy & Terms tick first. Needs `use_google` + the Google service in anvil.yaml.
 - No Email service in this app (unlike MonShop/CityCrossers): adding notifications by email means adding the service + legal kit facts.
 - `python -I` hides PyYAML: run gitapp_check/gitapp_test without `-I`.
 
