@@ -41,7 +41,8 @@ server_code/Articles.py    get_front_page, get_article, get_article_for_edit, sa
 server_code/Review.py      review_queue, get_review, decide, published_list, set_featured, unpublish
 server_code/Starters.py    load_starter_articles (Directors, only while nothing is published): 5 sourced starter articles by the
                            "Adorable Science team" account (team@adorablescience.invalid, disabled, no password); button on
-                           Review desk -> Published when it is empty. Test: tests/test_starters.py (gitapp_test.py)
+                           Review desk -> Published when it is empty. Since Nov 3 2026 get_front_page also calls ensure_starters():
+                           the first visit to an empty lab publishes them once (never again once the team account exists). Test: tests/test_starters.py (gitapp_test.py)
 theme/assets/theme.css     the whole look; beaker-spinner.svg; favicon
 ```
 

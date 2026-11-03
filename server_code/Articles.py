@@ -10,12 +10,14 @@ from anvil.tables import app_tables
 
 from . import lab_config as C
 from . import Render
+from . import Starters
 from .Lab import (Oops, api, card, clean, full_article, get_article_row, is_admin, log, me,
                   next_specimen_no, now, same_user, sources_of)
 
 
 @api
 def get_front_page(category=None, query=None):
+    Starters.ensure_starters()
     rows = list(app_tables.articles.search(tables.order_by("published_at", ascending=False), status="published"))
     counts = {}
     for r in rows:

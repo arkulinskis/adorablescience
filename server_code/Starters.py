@@ -128,6 +128,18 @@ def load_starter_articles():
     """Publish the starter articles, only while the front page is empty. Returns how many were added."""
     if len(app_tables.articles.search(status="published")):
         raise Oops("The front page already has articles, so the starters aren't needed.")
+    return {"made": _publish(me())}
+
+
+def ensure_starters():
+    """The user asked for the starters to go live without a click (Nov 3 2026): the first front-page visit to an empty
+    lab publishes them, once. Once the team account exists this never runs again, even if they're all taken down."""
+    if len(app_tables.articles.search(status="published")) or app_tables.users.get(email=TEAM_EMAIL) is not None:
+        return 0
+    return _publish(None)
+
+
+def _publish(reviewer):
     team = _team()
     have = {a["title"] for a in app_tables.articles.search(author=team)}
     made = 0
@@ -138,7 +150,7 @@ def load_starter_articles():
         cited = [n for n in C.cited_numbers(body) if 1 <= n <= len(s["sources"])]
         a = app_tables.articles.add_row(
             specimen_no=next_specimen_no(), author=team, created=now(), updated=now(), submitted_at=now(),
-            published_at=now(), status="published", reviewer=me(), review_note="Starter article", featured=(i == 0),
+            published_at=now(), status="published", reviewer=reviewer, review_note="Starter article", featured=(i == 0),
             boops=0, title=s["title"], dek=s["dek"], body=body, category=s["category"], evidence=s["evidence"],
             cover=s["cover"], n_sources=len(s["sources"]), n_cited=len(cited),
             reading_min=max(1, int(round(len(body.split()) / 200.0))))
@@ -146,4 +158,4 @@ def load_starter_articles():
             app_tables.sources.add_row(article=a, position=k, **src)
         log(a, "approved", "Starter article")
         made += 1
-    return {"made": made}
+    return made

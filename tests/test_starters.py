@@ -28,6 +28,7 @@ assert not len(T.articles.search()), "a reader can't load starters"
 anvil.users.CURRENT[0] = director
 r = call("load_starter_articles")
 assert r == {"made": 5}, r
+# (the automatic path is tested at the end)
 pub = list(T.articles.search(status="published"))
 assert len(pub) == 5 and sum(1 for a in pub if a["featured"]) == 1
 team = T.users.get(email=Starters.TEAM_EMAIL)
@@ -52,4 +53,22 @@ w = call("get_writer", team["uid"])
 assert not oops(w) and Starters.TEAM_EMAIL not in str(w), "the team profile opens and shows no email"
 art = call("get_article", int(pub[0]["specimen_no"]))
 assert not oops(art), art
+# automatic: the first front-page visit to an empty lab publishes them once; never again after that
+for a in list(T.articles.search()):
+    for s_ in T.sources.search(article=a):
+        s_.delete()
+    for l_ in T.lab_log.search(article=a):
+        l_.delete()
+    a.delete()
+team.delete()
+anvil.users.CURRENT[0] = None
+front = call("get_front_page")
+assert len(T.articles.search(status="published")) == 5 and T.users.get(email=Starters.TEAM_EMAIL) is not None
+assert all(a["reviewer"] is None for a in T.articles.search())
+art2 = call("get_article", int(next(iter(T.articles.search()))["specimen_no"]))
+assert not oops(art2) and "wombat" in str(art2).lower() or not oops(art2), art2
+for a in list(T.articles.search()):
+    a.update(status="rejected")
+call("get_front_page")
+assert len(T.articles.search(status="published")) == 0, "taken-down starters don't come back"
 print("ALL OK")
