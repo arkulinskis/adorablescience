@@ -62,7 +62,13 @@ class ReviewPage(ui.Page):
 
     def published_html(self):
         if not self.items:
-            return ui.empty("Nothing published yet", "Approved articles show up here.")
+            # An empty lab on launch day: one click publishes five short, sourced starter articles by the team.
+            return ui.empty("Nothing published yet",
+                            "Approved articles show up here. Empty front page on launch day? Publish five short starter "
+                            "articles (wombat cubes, puppy-dog eyes, tardigrades in space, ticklish rats, bumblebees at "
+                            "play), each linked to its studies and bylined \"Adorable Science team\". You can take any "
+                            "of them down later.",
+                            cta=ui.btn("🧪 Publish the starter articles", "load-starters", kind="primary"))
         rows = []
         for c in self.items:
             star = "⭐ Featured" if c["featured"] else "☆ Feature"
@@ -175,6 +181,11 @@ class ReviewPage(ui.Page):
             api.do("unpublish", int(arg), self.val("unpublish_note"))
             ui.close_modal()
             ui.toast("Taken down. The writer can see your note.")
+            self.load()
+            self.render()
+        elif action == "load-starters":
+            r = api.do("load_starter_articles")
+            ui.toast("%d starter articles are on the front page 🚀" % r["made"])
             self.load()
             self.render()
         elif action == "set-admin":

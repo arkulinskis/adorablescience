@@ -39,6 +39,9 @@ server_code/Render.py      safe Markdown-style renderer (escapes everything firs
 server_code/Accounts.py    get_me, update_profile, list_writers, get_writer, list_members, set_admin
 server_code/Articles.py    get_front_page, get_article, get_article_for_edit, save_article, withdraw_article, delete_article, my_articles, toggle_boop, preview_body
 server_code/Review.py      review_queue, get_review, decide, published_list, set_featured, unpublish
+server_code/Starters.py    load_starter_articles (Directors, only while nothing is published): 5 sourced starter articles by the
+                           "Adorable Science team" account (team@adorablescience.invalid, disabled, no password); button on
+                           Review desk -> Published when it is empty. Test: tests/test_starters.py (gitapp_test.py)
 theme/assets/theme.css     the whole look; beaker-spinner.svg; favicon
 ```
 

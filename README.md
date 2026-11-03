@@ -28,6 +28,11 @@ The **first person to sign in becomes the first Lab Director**, so sign up yours
 publishing. After that, Directors can promote others from **Review desk → Lab members**. You can also tick
 `is_admin` for a user in the Data Tables editor.
 
+**Empty front page?** While nothing is published, **Review desk → Published** offers *Publish the starter articles*:
+five short, sourced articles (wombat cubes, puppy-dog eyes, tardigrades in space, ticklish rats, bumblebees at play) by
+the "Adorable Science team" account, which nobody can sign in to. Each ends with a note saying it's a starter; take any
+of them down like any other article.
+
 Sign-up uses email + password and asks new users to confirm their email address (Users service settings).
 
 ## Code map
