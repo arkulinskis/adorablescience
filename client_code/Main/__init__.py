@@ -194,6 +194,7 @@ class Main(MainTemplate):
   <p>🥽 <b>Adorable Science</b> · Every article is reviewed by a Lab Director before it's published.
   Every claim should wear its citations.</p>
   <p><a class="as-linkbtn" href="https://prepsto.com/#f/7uhztrz" target="_blank" rel="noopener" data-prepsto-open>💬 Submit feedback</a> · <button type="button" class="as-linkbtn" data-lk-open="overview">Privacy &amp; Terms</button></p>
+  <p>Contact developer: <a href="https://arkvital.com" target="_blank" rel="noopener">arkvital.com</a> · Parent company: <a href="https://addanapp.com" target="_blank" rel="noopener">addanapp.com</a></p>
 </div>"""
 
     # ---------- events ----------
