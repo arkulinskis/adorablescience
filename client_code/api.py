@@ -1,4 +1,6 @@
-# api — client Module. Calls server functions and turns friendly server errors into LabError.
+"""Server calls for pages that show their own error state: load(name, ...) returns the reply, or raises LabError
+with the server's friendly message ({"__oops__": msg} from server_code/Lab.py @api). router.show() turns a LabError
+raised while a page opens into the friendly "Oops" page. Button actions use state.call (a toast instead)."""
 import anvil.server
 
 
@@ -13,16 +15,12 @@ def _check(result):
 
 
 def load(name, *args, **kwargs):
-    """Quiet call (no Anvil spinner). Pages show their own wobbling-beaker loader."""
-    try:
-        return _check(anvil.server.call_s(name, *args, **kwargs))
-    except anvil.server.SessionExpiredError:
-        raise LabError("Your session expired. Reload the page to continue.")
-
-
-def do(name, *args, **kwargs):
-    """Call for button actions (shows Anvil's spinner while it runs)."""
+    """A call with Anvil's spinner (the bubbling beaker). Friendly problems raise LabError."""
     try:
         return _check(anvil.server.call(name, *args, **kwargs))
-    except anvil.server.SessionExpiredError:
-        raise LabError("Your session expired. Reload the page to continue.")
+    except LabError:
+        raise
+    except Exception as e:  # (the validator's stubs have no anvil.server.SessionExpiredError)
+        if type(e).__name__ == "SessionExpiredError":
+            raise LabError("Your session expired. Reload the page to continue.")
+        raise

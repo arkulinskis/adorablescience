@@ -1,0 +1,16 @@
+<div class="ui as-app as-dialog">
+  <anvil-component type="Adorable_Science.Components.Mascot" name="mascot" prop:size="as-mascot-sm" prop:mood="sad"></anvil-component>
+  <h2 class="as-dialog-title">No sources yet!</h2>
+  <div class="as-modal-body">
+    <p>Bea the Beaker is worried. 😿 Articles without sources are much harder to approve, and readers can't check what they read.</p>
+    <ul>
+      <li>Link the original study (look for a <b>DOI</b> or the journal page)</li>
+      <li>Agency or university pages count too: NASA, NOAA, WHO…</li>
+      <li>Then type <code>[1]</code> in your text where you use it</li>
+    </ul>
+  </div>
+  <div class="as-row as-end">
+    <anvil-component type="Button" name="submit_button" prop:text="Submit without sources" prop:role='["btn", "btn-ghost"]'></anvil-component>
+    <anvil-component type="Button" name="add_button" prop:text="📎 Add a source" prop:role='["btn", "btn-primary"]'></anvil-component>
+  </div>
+</div>

@@ -8,6 +8,7 @@
 #   ---               (a divider)
 #   [1] [2] ...       inline citation to source #1, #2 ...
 import re
+from typing import Any, cast
 
 _CODE = re.compile(r"`([^`\n]+)`")
 _LINK = re.compile(r"\[([^\]\n]+)\]\((https?://[^\s)]+)\)")
@@ -56,7 +57,7 @@ def markdown(body, sources=()):
     lines = (body or "").replace("\r\n", "\n").replace("\r", "\n").split("\n")
     out = []
     para = []
-    lst = None  # ("ul"|"ol", [items])
+    lst: Any = None  # ("ul"|"ol", [items])
 
     def flush_para():
         if para:
@@ -68,7 +69,7 @@ def markdown(body, sources=()):
         if lst:
             tag, items = lst
             out.append("<%s>%s</%s>" % (tag, "".join("<li>%s</li>" % inline(i, sources) for i in items), tag))
-            lst = None
+            lst = cast(Any, None)
 
     quote = []
 

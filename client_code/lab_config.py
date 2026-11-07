@@ -103,6 +103,7 @@ def cited_numbers(body):
 
 def citation_meter(n_sources, n_cited=0):
     """How well-sourced is this? -> dict(pct, label, emoji, tone, tip)."""
+    m: dict
     if n_sources <= 0:
         m = dict(pct=6, label="Pure hypothesis", emoji="😿", tone="peach",
                  tip="No sources yet. Link the original study so readers can check your work.")

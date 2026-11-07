@@ -7,13 +7,13 @@ from .Lab import api, Oops, me, now, log, next_specimen_no, _rand_uid
 from . import lab_config as C
 
 TEAM_EMAIL = "team@adorablescience.invalid"  # .invalid: never a real inbox, and no password, so no one can sign in
-TEAM = dict(display_name="Adorable Science team", avatar="🦉", specialty="The lab's own writers",
+TEAM: dict = dict(display_name="Adorable Science team", avatar="🦉", specialty="The lab's own writers",
             bio="Starter articles from the people who run Adorable Science, drafted with AI help and checked against "
                 "the original studies. Spot a mistake? Use Submit feedback at the bottom of any page.")
 NOTE = ("\n\n!! A starter article from the Adorable Science team, here so the lab isn't empty on day one. "
         "Got a better story? Write one: every article is reviewed by a Lab Director before it goes live.")
 
-STARTERS = [
+STARTERS: list[dict] = [
     dict(
         title="Why wombat poop comes out in cubes",
         dek="Wombats are the only animals known to make cube-shaped droppings. Engineers worked out how a soft, "

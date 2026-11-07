@@ -1,0 +1,27 @@
+<anvil-form layout="Adorable_Science.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="as-page">
+      <div class="as-crumbs"><a href="#me" anvil:dom-node="back_link">← My profile</a></div>
+      <header class="as-pagehead">
+        <div><h1>🪪 Edit your profile</h1>
+          <p class="as-sub">Your lab badge: this is what readers see on your writer page.</p></div>
+      </header>
+      <div class="as-panel as-form-narrow">
+        <div class="as-field"><span class="as-field-label" id="critter-label">Your lab critter</span>
+          <div class="as-covers as-covers-lg" role="group" aria-labelledby="critter-label">
+            <anvil-component type="RepeatingPanel" name="avatar_panel" prop:item_template="Adorable_Science.Items.Pick" prop:role='["contents"]'></anvil-component>
+          </div></div>
+        <label class="as-field"><span class="as-field-label">Display name</span>
+          <anvil-component type="TextBox" name="name_box"></anvil-component></label>
+        <label class="as-field"><span class="as-field-label">What do you love writing about?</span>
+          <anvil-component type="TextBox" name="spec_box" prop:placeholder="Deep-sea squishies, black holes, fungi…"></anvil-component></label>
+        <label class="as-field"><span class="as-field-label">Short bio</span>
+          <anvil-component type="TextArea" name="bio_box" prop:height="110" prop:placeholder="Marine biology student. Will talk about octopuses for hours."></anvil-component></label>
+        <label class="as-field"><span class="as-field-label">Website (optional)</span>
+          <anvil-component type="TextBox" name="site_box" prop:type="url" prop:placeholder="https://"></anvil-component></label>
+        <div class="as-row as-end"><a class="as-btn as-btn-ghost" href="#me" anvil:dom-node="cancel_link">Cancel</a>
+          <anvil-component type="Button" name="save_button" prop:text="💾 Save profile" prop:role='["btn", "btn-primary"]'></anvil-component></div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

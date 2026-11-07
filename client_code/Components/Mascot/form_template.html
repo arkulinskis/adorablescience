@@ -1,0 +1,31 @@
+---
+custom_component: true
+properties:
+  - name: mood
+    type: string
+    default_value: happy
+    description: Bea's face - happy, sad or wow
+  - name: size
+    type: string
+    default_value: ""
+    description: CSS class for the size (as-brand-mark, as-mascot-sm, as-mascot-md, as-mascot-hero)
+toolbox_item:
+  title: Mascot
+  group: Adorable Science
+help_text: |
+  Bea the Beaker, the app's mascot (an SVG drawing). mood picks the mouth, size a CSS size class.
+---
+<span class="as-mascot-box"><svg anvil:dom-node="svg" class="as-mascot" viewBox="0 0 120 140" aria-hidden="true" focusable="false">
+  <circle class="as-bub as-bub1" cx="50" cy="16" r="5"/>
+  <circle class="as-bub as-bub2" cx="66" cy="7" r="3.5"/>
+  <circle class="as-bub as-bub3" cx="72" cy="20" r="2.5"/>
+  <path d="M60 129 H30 a13 13 0 0 1 -11 -20 L45 63 V36 H75 V63 L101 109 a13 13 0 0 1 -11 20 Z" fill="#c4f3e5"/>
+  <path d="M60 129 H30 a13 13 0 0 1 -11 -20 L33 84 q7 -5 14 0 t14 0 t14 0 t13 0 L101 109 a13 13 0 0 1 -11 20 Z" fill="#8fe3cb"/>
+  <path d="M60 129 H30 a13 13 0 0 1 -11 -20 L45 63 V36 H75 V63 L101 109 a13 13 0 0 1 -11 20 Z" fill="none" stroke="#2b2a4c" stroke-width="4.5" stroke-linejoin="round"/>
+  <rect x="40" y="28" width="40" height="9" rx="4.5" fill="#ffffff" stroke="#2b2a4c" stroke-width="4.5"/>
+  <ellipse cx="38" cy="106" rx="6" ry="3.5" fill="#d6408a" opacity=".45"/>
+  <ellipse cx="82" cy="106" rx="6" ry="3.5" fill="#d6408a" opacity=".45"/>
+  <g class="as-eyes"><circle cx="47" cy="96" r="4.5" fill="#2b2a4c"/><circle cx="73" cy="96" r="4.5" fill="#2b2a4c"/>
+  <circle cx="48.6" cy="94.4" r="1.5" fill="#fff"/><circle cx="74.6" cy="94.4" r="1.5" fill="#fff"/></g>
+  <path anvil:dom-node="mouth" d="M53 104 q7 7 14 0" fill="none" stroke="#2b2a4c" stroke-width="3.5" stroke-linecap="round"/>
+</svg></span>

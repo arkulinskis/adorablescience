@@ -1,0 +1,51 @@
+---
+layout_metadata:
+  title: Lab frame
+  description: Header (Bea, the tabs, the signed-in writer), the page in the middle, the footer with a lab fact
+---
+<div class="ui as-app as-shell">
+  <header class="as-header">
+    <a class="as-skip" href="#main-content" anvil:on-dom:click="self.skip_click">Skip to the page</a>
+    <div class="as-topbar">
+      <a class="as-brand" href="#" aria-label="Adorable Science home">
+        <anvil-component type="Adorable_Science.Components.Mascot" name="brand_mascot" prop:size="as-brand-mark"></anvil-component>
+        <span class="as-brand-text"><span class="as-brand-name">Adorable<b>Science</b></span>
+          <span class="as-brand-tag">Fuzzy-hearted news from the frontiers of discovery</span></span>
+      </a>
+      <div class="as-user">
+        <div class="as-row as-tight" anvil:name="member_actions">
+          <a class="as-me" anvil:dom-node="me_link" href="#me" title="My profile"><span anvil:dom-node="me_avatar"></span><span class="as-me-name" anvil:dom-node="me_name"></span></a>
+          <anvil-component type="Button" name="signout_button" prop:text="Sign out" prop:role='["btn", "btn-ghost", "btn-sm"]'></anvil-component>
+        </div>
+        <a class="as-btn as-btn-primary as-btn-sm" href="#join" anvil:name="join_link">Join the lab 🥼</a>
+      </div>
+    </div>
+    <nav class="as-nav" aria-label="Main">
+      <anvil-component type="RepeatingPanel" name="nav_panel" prop:item_template="Adorable_Science.Items.NavLink" prop:role='["contents"]'></anvil-component>
+    </nav>
+  </header>
+
+  <main class="as-main" id="main-content" tabindex="-1" anvil:dom-node="main">
+    <anvil-slot name="content"></anvil-slot>
+  </main>
+
+  <footer class="as-footer">
+    <div class="as-footer-in">
+      <div class="as-fact"><span class="as-fact-tag">🔬 Lab fact</span><span anvil:dom-node="fact"></span>
+        <button type="button" class="as-linkbtn" anvil:on-dom:click="self.fact_click">another!</button></div>
+      <p>🥽 <b>Adorable Science</b> · Every article is reviewed by a Lab Director before it's published.
+        Every claim should wear its citations.</p>
+      <p><a class="as-linkbtn" href="https://prepsto.com/#f/7uhztrz" target="_blank" rel="noopener" data-prepsto-open>💬 Submit feedback</a>
+        · <button type="button" class="as-linkbtn" data-lk-open="overview">Privacy &amp; Terms</button></p>
+      <p>Contact developer: <a href="https://arkvital.com" target="_blank" rel="noopener">arkvital.com</a>
+        · Parent company: <a href="https://addanapp.com" target="_blank" rel="noopener">addanapp.com</a></p>
+      <div class="as-row as-footer-theme"><span id="theme-label">Appearance</span>
+        <div class="as-tabs2 ui-seg" role="group" aria-labelledby="theme-label">
+          <button type="button" class="as-tab2" data-theme-set="auto" anvil:dom-node="theme_auto" anvil:on-dom:click="self.theme_click">Auto</button>
+          <button type="button" class="as-tab2" data-theme-set="light" anvil:dom-node="theme_light" anvil:on-dom:click="self.theme_click">Light</button>
+          <button type="button" class="as-tab2" data-theme-set="dark" anvil:dom-node="theme_dark" anvil:on-dom:click="self.theme_click">Dark</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

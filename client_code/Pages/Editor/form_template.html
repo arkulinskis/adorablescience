@@ -1,0 +1,85 @@
+<anvil-form layout="Adorable_Science.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="as-page">
+      <div class="as-crumbs"><a href="#lab">← My lab</a></div>
+      <header class="as-pagehead">
+        <div><h1 anvil:dom-node="heading">✍️ Write a new discovery</h1>
+          <p class="as-sub">Your writing desk: write it warmly, check it carefully, and link where every fact came from.</p></div>
+        <div class="as-row"><span anvil:dom-node="status_pill" class="as-status as-status-draft">🧫 New draft</span></div>
+      </header>
+      <div class="as-banner as-banner-published" anvil:dom-node="live_banner" hidden><span aria-hidden="true">🚀</span> <span><b>This article is live.</b> Saving or submitting changes takes it off the front page until a Lab Director approves it again.</span></div>
+      <div class="as-banner as-banner-pending" anvil:dom-node="pending_banner" hidden><span aria-hidden="true">🔬</span> <span><b>Under the microscope.</b> It’s waiting for review. Saving as a draft withdraws it from the queue.</span></div>
+      <div class="as-reviewnote" anvil:dom-node="note_banner" hidden><b>🧪 Reviewer’s note:</b> <span anvil:dom-node="note_text"></span></div>
+
+      <div class="as-editor">
+        <div class="as-editor-main">
+          <label class="as-field"><span class="as-field-label">Headline <i anvil:dom-node="title_count">0/140</i></span>
+            <anvil-component type="TextBox" name="title_box" prop:role='["as-input-title"]' prop:placeholder="Tiny tardigrades survive the impossible"></anvil-component></label>
+          <label class="as-field"><span class="as-field-label">One-line summary <i anvil:dom-node="dek_count">0/280</i></span>
+            <anvil-component type="TextArea" name="dek_box" prop:height="72" prop:placeholder="What did scientists find, and why is it delightful? This shows on the front page."></anvil-component></label>
+
+          <div class="as-field">
+            <div class="as-bodybar">
+              <div class="as-tabs2 ui-seg" role="group" aria-label="Write or preview">
+                <button type="button" class="as-tab2 on" anvil:dom-node="mode_write" data-mode="write" anvil:on-dom:click="self.mode_click">✏️ Write</button>
+                <button type="button" class="as-tab2" anvil:dom-node="mode_preview" data-mode="preview" anvil:on-dom:click="self.mode_click">👀 Preview</button>
+              </div>
+              <div class="as-fmts" anvil:dom-node="fmts" role="group" aria-label="Formatting">
+                <button type="button" class="as-fmt" data-fmt="bold" title="Bold" aria-label="Bold" anvil:on-dom:click="self.fmt_click"><b>B</b></button>
+                <button type="button" class="as-fmt" data-fmt="italic" title="Italic" aria-label="Italic" anvil:on-dom:click="self.fmt_click"><i>I</i></button>
+                <button type="button" class="as-fmt" data-fmt="h" title="Section heading" aria-label="Section heading" anvil:on-dom:click="self.fmt_click">H</button>
+                <button type="button" class="as-fmt" data-fmt="ul" title="Bullet list" aria-label="Bullet list" anvil:on-dom:click="self.fmt_click">•</button>
+                <button type="button" class="as-fmt" data-fmt="quote" title="Quote" aria-label="Quote" anvil:on-dom:click="self.fmt_click">❝</button>
+                <button type="button" class="as-fmt" data-fmt="note" title="Lab note callout" aria-label="Lab note callout" anvil:on-dom:click="self.fmt_click">🧪</button>
+                <button type="button" class="as-fmt" data-fmt="link" title="Link" aria-label="Link" anvil:on-dom:click="self.fmt_click">🔗</button>
+              </div>
+            </div>
+            <anvil-component type="TextArea" name="body_box" prop:role='["as-body"]' prop:placeholder="Start with the discovery. Who found it, how, and why it matters. Cite sources like this [1]."></anvil-component>
+            <div class="as-prose as-preview" anvil:dom-node="preview" hidden></div>
+            <details class="as-help"><summary>Formatting cheat-sheet</summary>
+              <code>## Heading</code> · <code>**bold**</code> · <code>*italic*</code> · <code>- bullet</code> · <code>1. numbered</code> ·
+              <code>&gt; quote</code> · <code>!! lab note</code> · <code>[text](https://link)</code> · <code>[1]</code> cites source 1</details>
+          </div>
+
+          <section class="as-sources" anvil:dom-node="sources_box">
+            <div class="as-sources-head">
+              <h2>📚 Sources <span class="as-pill-soft">the secret ingredient</span></h2>
+              <p>Link the <b>original</b> study, dataset or expert page, not only news coverage of it. A DOI link
+              (https://doi.org/…) is perfect. Well-sourced articles are much more likely to be approved, and readers trust them more.</p>
+            </div>
+            <anvil-component type="RepeatingPanel" name="source_panel" prop:item_template="Adorable_Science.Items.SourceEdit" prop:role='["contents"]'></anvil-component>
+            <anvil-component type="Button" name="add_source_button" prop:text="＋ Add another source" prop:role='["btn", "btn-dashed"]'></anvil-component>
+          </section>
+        </div>
+
+        <aside class="as-editor-side">
+          <div class="as-panel"><h2 class="as-panel-title">Citation meter</h2>
+            <anvil-component type="Adorable_Science.Components.Meter" name="meter"></anvil-component></div>
+          <div class="as-panel">
+            <label class="as-field"><span class="as-field-label">Field</span>
+              <anvil-component type="DropDown" name="cat_box" prop:include_placeholder="true" prop:placeholder="Pick a field…"></anvil-component></label>
+            <label class="as-field"><span class="as-field-label">Evidence level</span>
+              <anvil-component type="DropDown" name="ev_box" prop:include_placeholder="true" prop:placeholder="How solid is the science?"></anvil-component></label>
+            <div class="as-field"><span class="as-field-label" id="cover-label">Cover critter</span>
+              <div class="as-covers" role="group" aria-labelledby="cover-label">
+                <anvil-component type="RepeatingPanel" name="cover_panel" prop:item_template="Adorable_Science.Items.Pick" prop:role='["contents"]'></anvil-component>
+              </div></div>
+          </div>
+          <div class="as-panel as-panel-actions">
+            <anvil-component type="Button" name="submit_button" prop:text="🔬 Submit for review" prop:role='["btn", "btn-primary", "btn-block"]'></anvil-component>
+            <anvil-component type="Button" name="save_button" prop:text="🧫 Save draft" prop:role='["btn", "btn-soft", "btn-block"]'></anvil-component>
+            <p class="as-muted as-small">Nothing is published until a Lab Director reviews and approves it.</p>
+          </div>
+          <details class="as-panel as-guide" open><summary><h2 class="as-panel-title">🥼 Lab style guide</h2></summary>
+            <ul>
+              <li><b>Cute is great, misleading is not.</b> Don't exaggerate what was found.</li>
+              <li><b>“In mice” matters.</b> Say who or what was studied, and how many.</li>
+              <li><b>Say how sure scientists are.</b> That's what the evidence level is for.</li>
+              <li><b>Credit the researchers</b> and link their work.</li>
+            </ul>
+          </details>
+        </aside>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

@@ -1,0 +1,19 @@
+---
+custom_component: true
+properties: []
+toolbox_item:
+  title: Citation meter
+  group: Adorable Science
+help_text: |
+  How well-sourced an article is (lab_config.citation_meter). Call show(n_sources, n_cited) to redraw.
+---
+<div class="as-meter tone-peach" anvil:dom-node="box">
+  <div class="as-meter-top"><span class="as-meter-face" anvil:dom-node="face" aria-hidden="true">😿</span>
+    <div><div class="as-meter-label" anvil:dom-node="label">Pure hypothesis</div>
+    <div class="as-meter-count" anvil:dom-node="count">0 sources</div></div></div>
+  <div class="as-meter-track" anvil:dom-node="track" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="6" aria-label="Citation meter">
+    <div class="as-meter-fill" anvil:dom-node="fill" style="width:6%"></div>
+    <span class="as-meter-tick" style="left:38%"></span><span class="as-meter-tick" style="left:70%"></span>
+  </div>
+  <p class="as-meter-tip" anvil:dom-node="tip"></p>
+</div>

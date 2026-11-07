@@ -37,28 +37,37 @@ Sign-up uses email + password and asks new users to confirm their email address 
 
 ## Code map
 
+Native Anvil Forms (Python + HTML templates, a layout, custom components, RepeatingPanels), since Nov 2026.
+
 ```
 client_code/
-  Main/            startup form: header, footer, routing (#article/12, #writer/abc, #write, #review…)
-  as_ui.py         HTML building blocks, the Bea-the-Beaker mascot, toasts and dialogs
-  api.py           server calls; friendly server errors become LabError
+  startup.py       get_me, Privacy & Terms kit, router.start()
+  router.py        #addresses -> page Forms (#, #topic/x, #article/12, #writer/abc, #write, #lab, #join, #review/12 ...)
+  state.py         signed-in person, server calls ({"__oops__"} -> toast), toasts, theme, accessibility helpers
+  api.py           api.load: server calls for pages; friendly server errors become LabError (the "Oops" page)
+  auth.py          sign in / sign up / reset / Continue with Google / sign out
+  bits.py          the little stickers: field chip, evidence, sources badge, status pill, specimen, avatar, byline
   lab_config.py    shared constants (fields, evidence levels, statuses); also used by the server
-  page_home.py     front page          page_article.py  reading an article
-  page_editor.py   writing desk        page_lab.py      "My lab": my articles by status
-  page_writers.py  roster, profile, edit profile
-  page_auth.py     sign in / sign up   page_review.py   Lab Director review desk
+  Layouts/Shell    header (Bea, tabs, the signed-in writer), footer (lab fact, feedback, Privacy & Terms, light/dark)
+  Pages/           Front, Article, Editor (writing desk), Lab (my articles), Writers, Writer, MyProfile, Join,
+                   Review (Lab Director desk + one review), Problem (friendly "Oops")
+  Components/      Mascot (Bea the Beaker), Meter (citation meter), ArticleView (reader + review), Notebook
+  Items/           RepeatingPanel rows: ArticleCard, FilterChip, SourceRef, SourceEdit, Pick, LabTile, LabGroup,
+                   LabRow, DeskRow, MemberRow, WriterCard, Badge, Check, LogEntry, NavLink
+  Dialogs/         NoSources (submit without sources?), TakeDown (note for the writer)
 server_code/
-  Lab.py           @api decorator, permissions, row → dict helpers
+  Lab.py           @api decorator, permissions, row -> dict helpers
   Render.py        safe Markdown-style renderer for article bodies (escapes everything first)
   Accounts.py      me, profiles, writers, admin roles
   Articles.py      front page, read, save/submit, withdraw, delete, boops
   Review.py        review queue, approve / send back, feature, take down
-theme/assets/theme.css   the whole look
+  Starters.py      five sourced starter articles for an empty front page
+theme/assets/      app.css (the whole look, light + dark), app-kit.js, icons.css, theme.css (Bea spinner), legal-kit.js
+tools/             check.py (Anvil validator, server tests), ui_test.py (real App Server in Docker + headless Chrome)
 ```
 
-Pages build HTML in Python; `Main` sends clicks on elements with `data-action="…"` back to the
-current page's `on_action()`. All server functions return plain dicts, so writer emails and unpublished
-drafts never reach other people's browsers.
+All server functions return plain dicts, so writer emails and unpublished drafts never reach other people's
+browsers. Checks: `python tools/check.py` and `python -I tools/ui_test.py`.
 
 ### Article formatting
 

@@ -1,0 +1,36 @@
+<anvil-form layout="Adorable_Science.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="as-page">
+      <div class="as-crumbs"><a href="#writers">← All writers</a><a class="as-btn as-btn-soft as-btn-sm" href="#me" anvil:dom-node="edit_link" hidden>✏️ Edit profile</a></div>
+      <section class="as-profile">
+        <div class="as-profile-dish"><span anvil:dom-node="av"></span></div>
+        <div class="as-profile-main">
+          <div class="as-row as-tight"><span anvil:dom-node="lab_id"></span><span class="as-chip tone-lav" anvil:dom-node="director" hidden>🥼 Lab Director</span></div>
+          <h1 anvil:dom-node="name"></h1>
+          <div class="as-profile-spec" anvil:dom-node="spec"></div>
+          <p class="as-profile-bio" anvil:dom-node="bio"></p>
+          <div class="as-row as-muted as-small"><span anvil:dom-node="since"></span><a class="as-linkish" anvil:dom-node="site" target="_blank" rel="noopener nofollow" hidden></a></div>
+          <div class="as-badges" role="list">
+            <anvil-component type="RepeatingPanel" name="badge_panel" prop:item_template="Adorable_Science.Items.Badge" prop:role='["contents"]'></anvil-component>
+          </div>
+        </div>
+      </section>
+      <div class="as-stats">
+        <div class="as-stat"><b anvil:dom-node="st_published"></b><span>discoveries</span></div>
+        <div class="as-stat"><b anvil:dom-node="st_sources"></b><span>sources cited</span></div>
+        <div class="as-stat"><b anvil:dom-node="st_avg"></b><span>sources / article</span></div>
+        <div class="as-stat"><b anvil:dom-node="st_boops"></b><span>boops received</span></div>
+      </div>
+      <section anvil:name="articles_box">
+        <h2 class="as-section">🔬 Published discoveries</h2>
+        <anvil-component type="RepeatingPanel" name="card_panel" prop:item_template="Adorable_Science.Items.ArticleCard" prop:role='["cards"]'></anvil-component>
+      </section>
+      <div class="as-empty" anvil:name="empty_box">
+        <anvil-component type="Adorable_Science.Components.Mascot" name="empty_mascot" prop:size="as-mascot-md"></anvil-component>
+        <h2 class="as-empty-title" anvil:dom-node="empty_title">Nothing published yet</h2>
+        <p anvil:dom-node="empty_text">Their first discovery is still in the lab. Check back soon!</p>
+        <div class="as-row as-center" anvil:name="empty_actions"><a class="as-btn as-btn-soft" href="#lab">🧫 Go to my lab</a><a class="as-btn as-btn-primary" href="#write">✍️ Write</a></div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

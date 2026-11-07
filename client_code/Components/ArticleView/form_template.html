@@ -1,0 +1,36 @@
+---
+custom_component: true
+properties: []
+toolbox_item:
+  title: Article view
+  group: Adorable Science
+help_text: |
+  One article as readers see it: status banner (drafts), head, body, sources. Used by the reader page and the
+  review desk, so reviewers see exactly what readers will. Call show(article) with a get_article / get_review reply.
+---
+<div class="as-articleview">
+  <div class="as-banner" anvil:dom-node="banner" hidden><span anvil:dom-node="banner_emoji" aria-hidden="true"></span><span><b anvil:dom-node="banner_title"></b> <span anvil:dom-node="banner_text"></span></span></div>
+  <div class="as-reviewnote" anvil:dom-node="note" hidden><b>Reviewer’s note:</b> <span anvil:dom-node="note_text"></span></div>
+  <div class="as-article-head" anvil:dom-node="head">
+    <div class="as-article-cover" anvil:dom-node="cover" aria-hidden="true"></div>
+    <div class="as-row as-tight"><a anvil:dom-node="cat"></a><span anvil:dom-node="ev"></span><span anvil:dom-node="spec"></span></div>
+    <h1 class="as-article-title" anvil:dom-node="title"></h1>
+    <p class="as-article-dek" anvil:dom-node="dek"></p>
+    <div class="as-article-meta">
+      <a class="as-byline" anvil:dom-node="by"><span anvil:dom-node="by_av"></span><span><b anvil:dom-node="by_name"></b><span anvil:dom-node="by_extra"></span></span></a>
+      <button type="button" class="as-srcbadge as-srcbadge-btn" anvil:dom-node="src_btn" anvil:on-dom:click="self.src_click"></button>
+      <span anvil:dom-node="src_none"></span>
+    </div>
+  </div>
+  <div class="as-prose" anvil:dom-node="prose"></div>
+  <section class="as-refs" anvil:dom-node="refs">
+    <div class="as-row"><h2 class="as-refs-title" anvil:dom-node="refs_title">📚 Sources</h2><span class="as-srcbadge as-srcbadge-gold" anvil:dom-node="gold">😻 Peer-purr-viewed</span></div>
+    <div class="as-refs-list" role="list">
+      <anvil-component type="RepeatingPanel" name="refs_panel" prop:item_template="Adorable_Science.Items.SourceRef" prop:role='["contents"]'></anvil-component>
+    </div>
+  </section>
+  <section class="as-refs as-refs-none" anvil:dom-node="refs_none" hidden>
+    <h2 class="as-refs-title">📚 Sources</h2>
+    <p>⚠️ <b>This article doesn't link any sources.</b> Read it with a skeptical squint, and look for the original research before sharing.</p>
+  </section>
+</div>

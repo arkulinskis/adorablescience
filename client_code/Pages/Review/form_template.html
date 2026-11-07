@@ -1,0 +1,61 @@
+<anvil-form layout="Adorable_Science.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="as-page">
+      <div anvil:name="desk">
+        <header class="as-pagehead">
+          <div><h1>🔬 Review desk</h1>
+            <p class="as-sub">For Lab Directors: nothing reaches the front page until it's approved here. Check the sources,
+            then approve it or send it back with friendly notes.</p></div>
+        </header>
+        <div class="as-tabs2 as-tabs2-lg ui-seg" role="group" aria-label="Review desk lists">
+          <button type="button" class="as-tab2 on" data-tab="queue" anvil:dom-node="tab_queue" anvil:on-dom:click="self.tab_click">🔬 Waiting for review</button>
+          <button type="button" class="as-tab2" data-tab="published" anvil:dom-node="tab_published" anvil:on-dom:click="self.tab_click">🚀 Published</button>
+          <button type="button" class="as-tab2" data-tab="members" anvil:dom-node="tab_members" anvil:on-dom:click="self.tab_click">🥼 Lab members</button>
+        </div>
+        <p class="as-muted" anvil:dom-node="desk_note"></p>
+        <div class="as-empty" anvil:name="desk_empty">
+          <anvil-component type="Adorable_Science.Components.Mascot" name="empty_mascot" prop:size="as-mascot-md"></anvil-component>
+          <h2 class="as-empty-title" anvil:dom-node="empty_title"></h2>
+          <p anvil:dom-node="empty_text"></p>
+          <div class="as-row as-center">
+            <anvil-component type="Button" name="starters_button" prop:text="🧪 Publish the starter articles" prop:role='["btn", "btn-primary"]'></anvil-component>
+          </div>
+        </div>
+        <anvil-component type="RepeatingPanel" name="desk_panel" prop:item_template="Adorable_Science.Items.DeskRow" prop:role='["contents"]'></anvil-component>
+        <anvil-component type="RepeatingPanel" name="member_panel" prop:item_template="Adorable_Science.Items.MemberRow" prop:role='["contents"]'></anvil-component>
+      </div>
+
+      <div anvil:name="one">
+        <div class="as-crumbs"><a href="#review">← Review desk</a><a class="as-linkish" anvil:dom-node="reader_link" href="#">Open the reader view →</a></div>
+        <div class="as-editor">
+          <div class="as-editor-main">
+            <article class="as-article as-article-review">
+              <anvil-component type="Adorable_Science.Components.ArticleView" name="view"></anvil-component>
+              <anvil-component type="Adorable_Science.Components.Notebook" name="notebook"></anvil-component>
+            </article>
+          </div>
+          <aside class="as-editor-side">
+            <div class="as-panel"><h2 class="as-panel-title">Reviewer checklist <span class="as-muted" anvil:dom-node="passed"></span></h2>
+              <div class="as-checks" role="list">
+                <anvil-component type="RepeatingPanel" name="check_panel" prop:item_template="Adorable_Science.Items.Check" prop:role='["contents"]'></anvil-component>
+              </div></div>
+            <div class="as-panel"><h2 class="as-panel-title">Citation meter</h2>
+              <anvil-component type="Adorable_Science.Components.Meter" name="meter"></anvil-component></div>
+            <div class="as-panel as-decide" anvil:name="decide_box">
+              <h2 class="as-panel-title">Your decision</h2>
+              <label class="as-field"><span class="as-field-label">Note to the writer</span>
+                <anvil-component type="TextArea" name="note_box" prop:height="120" prop:placeholder="Lovely piece! Could you link the original paper for the second claim?"></anvil-component></label>
+              <anvil-component type="CheckBox" name="feature_box" prop:text="⭐ Feature it at the top of the front page" prop:role='["as-check"]'></anvil-component>
+              <anvil-component type="Button" name="approve_button" prop:text="🚀 Approve &amp; publish" prop:role='["btn", "btn-good", "btn-block"]'></anvil-component>
+              <anvil-component type="Button" name="send_back_button" prop:text="🧪 Send back: needs more data" prop:role='["btn", "btn-soft", "btn-block"]'></anvil-component>
+              <p class="as-muted as-small">Sending back needs a note, so the writer knows what to fix.</p>
+            </div>
+            <div class="as-panel" anvil:name="closed_box"><h2 class="as-panel-title">Not in the queue</h2>
+              <p>This article is <b anvil:dom-node="closed_status"></b>, so there’s nothing to decide right now.</p>
+              <a class="as-btn as-btn-soft as-btn-block" href="#review">← Back to the queue</a></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

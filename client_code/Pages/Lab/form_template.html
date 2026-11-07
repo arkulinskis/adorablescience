@@ -1,0 +1,23 @@
+<anvil-form layout="Adorable_Science.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="as-page">
+      <header class="as-pagehead">
+        <div><h1 anvil:dom-node="heading">Hi, scientist</h1>
+          <p class="as-sub">Your lab bench: every article starts in the Petri dish and goes under the microscope before it's published.</p></div>
+        <div class="as-row"><a class="as-btn as-btn-primary" href="#write">✍️ New article</a><a class="as-btn as-btn-soft" href="#me">Edit my profile</a></div>
+      </header>
+      <div class="as-empty" anvil:name="empty_box">
+        <anvil-component type="Adorable_Science.Components.Mascot" name="empty_mascot" prop:size="as-mascot-md"></anvil-component>
+        <h2 class="as-empty-title">Your bench is spotless</h2>
+        <p>Write your first article. Save it as a draft as often as you like, then submit it for review when it's ready.</p>
+        <div class="as-row as-center"><a class="as-btn as-btn-primary" href="#write">✍️ Start writing</a></div>
+      </div>
+      <div anvil:name="bench">
+        <div class="as-tiles">
+          <anvil-component type="RepeatingPanel" name="tile_panel" prop:item_template="Adorable_Science.Items.LabTile" prop:role='["contents"]'></anvil-component>
+        </div>
+        <anvil-component type="RepeatingPanel" name="group_panel" prop:item_template="Adorable_Science.Items.LabGroup" prop:role='["contents"]'></anvil-component>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

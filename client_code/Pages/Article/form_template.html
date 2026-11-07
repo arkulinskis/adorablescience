@@ -1,0 +1,32 @@
+<anvil-form layout="Adorable_Science.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="as-page">
+      <div class="as-crumbs"><a href="#">← Front page</a>
+        <div class="as-row as-tight">
+          <a class="as-btn as-btn-soft as-btn-sm" anvil:dom-node="edit_link" href="#write" hidden>✏️ Edit</a>
+          <a class="as-btn as-btn-primary as-btn-sm" anvil:dom-node="review_link" href="#review" hidden>🔬 Review this</a>
+          <anvil-component type="Button" name="copy_button" prop:text="🔗 Copy link" prop:role='["btn", "btn-ghost", "btn-sm"]'></anvil-component>
+        </div>
+      </div>
+      <article class="as-article">
+        <anvil-component type="Adorable_Science.Components.ArticleView" name="view"></anvil-component>
+        <div class="as-boopbox" anvil:dom-node="boop_box">
+          <button type="button" class="as-boop" anvil:dom-node="boop" anvil:on-dom:click="self.boop_click" aria-pressed="false">
+            <span class="as-boop-paw" aria-hidden="true">🐾</span><span><b anvil:dom-node="boop_count">0</b> boops</span>
+          </button>
+          <p>Did this article make you go “aww, science!”? Give it a boop.<span anvil:dom-node="boop_hint"> (Sign in first.)</span></p>
+        </div>
+        <a class="as-authorbox" anvil:dom-node="author_box">
+          <span anvil:dom-node="author_av"></span>
+          <div><div class="as-authorbox-name">Written by <b anvil:dom-node="author_name"></b></div>
+            <p anvil:dom-node="author_spec"></p><span class="as-linkish">See their lab profile →</span></div>
+        </a>
+        <anvil-component type="Adorable_Science.Components.Notebook" name="notebook"></anvil-component>
+      </article>
+      <section anvil:name="more_box">
+        <h2 class="as-section" anvil:dom-node="more_title"></h2>
+        <anvil-component type="RepeatingPanel" name="more_panel" prop:item_template="Adorable_Science.Items.ArticleCard" prop:role='["cards", "cards-3"]'></anvil-component>
+      </section>
+    </div>
+  </anvil-block>
+</anvil-form>

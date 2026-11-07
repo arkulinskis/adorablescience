@@ -1,0 +1,16 @@
+---
+custom_component: true
+properties: []
+toolbox_item:
+  title: Lab notebook
+  group: Adorable Science
+help_text: |
+  An article's review history (only its writer and Lab Directors get it from the server). show(history).
+---
+<section class="as-notebook">
+  <h2 class="as-notebook-title">📓 Lab notebook</h2>
+  <p class="as-muted">Only you and Lab Directors see this.</p>
+  <div class="as-log-list" role="list">
+    <anvil-component type="RepeatingPanel" name="log_panel" prop:item_template="Adorable_Science.Items.LogEntry" prop:role='["contents"]'></anvil-component>
+  </div>
+</section>

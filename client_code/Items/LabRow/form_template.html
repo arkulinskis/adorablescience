@@ -1,0 +1,15 @@
+<div class="as-labrow">
+  <span class="as-labrow-cover" anvil:dom-node="cover" aria-hidden="true"></span>
+  <div class="as-labrow-main">
+    <div class="as-row as-tight"><span anvil:dom-node="spec"></span><a anvil:dom-node="cat"></a><span anvil:dom-node="src"></span></div>
+    <h3 anvil:dom-node="title"></h3>
+    <div class="as-muted as-small" anvil:dom-node="when"></div>
+    <div class="as-reviewnote" anvil:dom-node="note" hidden><b>Reviewer’s note:</b> <span anvil:dom-node="note_text"></span></div>
+  </div>
+  <div class="as-labrow-actions">
+    <a class="as-btn as-btn-soft as-btn-sm" anvil:dom-node="edit_link" href="#write">✏️ Edit</a>
+    <a class="as-btn as-btn-ghost as-btn-sm" anvil:dom-node="view_link" href="#article">👀 View</a>
+    <anvil-component type="Button" name="withdraw_button" prop:text="↩️ Withdraw" prop:role='["btn", "btn-ghost", "btn-sm"]'></anvil-component>
+    <anvil-component type="Button" name="delete_button" prop:text="🗑️" prop:tooltip="Delete" prop:role='["btn", "btn-ghost", "btn-sm"]'></anvil-component>
+  </div>
+</div>

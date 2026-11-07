@@ -1,0 +1,85 @@
+<anvil-form layout="Adorable_Science.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="as-page">
+      <section class="as-hero" anvil:name="hero">
+        <div class="as-hero-copy">
+          <h1>The cutest corner of <span class="as-squiggle">serious science</span>.</h1>
+          <p>Peer-purr-viewed news: real discoveries, explained with warmth by our community of writers. Every story is
+          checked by a Lab Director before it's published, and every claim links its sources.</p>
+          <div class="as-row">
+            <a class="as-btn as-btn-primary" href="#join/write" anvil:dom-node="write_link">✍️ Write a discovery</a>
+            <a class="as-btn as-btn-soft" href="#writers">🧑‍🔬 Meet the writers</a>
+          </div>
+          <div class="as-hero-stats">
+            <span><b anvil:dom-node="stat_articles">0</b> discoveries</span>
+            <span><b anvil:dom-node="stat_writers">0</b> writers</span>
+            <span><b anvil:dom-node="stat_sources">0</b> sources cited</span>
+          </div>
+        </div>
+        <div class="as-hero-art">
+          <anvil-component type="Adorable_Science.Components.Mascot" name="hero_mascot" prop:size="as-mascot-hero"></anvil-component>
+          <div class="as-hero-bubble">Hi! I'm Bea. I only believe things with citations. 📎</div>
+        </div>
+      </section>
+
+      <h1 class="ui-sr" anvil:dom-node="sr_title" hidden></h1>
+      <nav class="as-filters" aria-label="Fields">
+        <anvil-component type="RepeatingPanel" name="filter_panel" prop:item_template="Adorable_Science.Items.FilterChip" prop:role='["contents"]'></anvil-component>
+      </nav>
+      <div class="as-search" role="search">
+        <span aria-hidden="true">🔎</span>
+        <anvil-component type="TextBox" name="search_box" prop:type="search" prop:placeholder="Search titles, summaries and writers…"></anvil-component>
+        <anvil-component type="Button" name="search_button" prop:text="Search" prop:role='["btn", "btn-sm"]'></anvil-component>
+      </div>
+
+      <div class="as-empty" anvil:name="empty_box">
+        <anvil-component type="Adorable_Science.Components.Mascot" name="empty_mascot" prop:size="as-mascot-md"></anvil-component>
+        <h2 class="as-empty-title" anvil:dom-node="empty_title"></h2>
+        <p anvil:dom-node="empty_text"></p>
+        <div class="as-row as-center">
+          <a class="as-btn as-btn-primary" anvil:name="empty_write" anvil:dom-node="empty_write_link" href="#write">✍️ Write the first discovery</a>
+          <anvil-component type="Button" name="clear_button" prop:text="Clear search" prop:role='["btn", "btn-soft"]'></anvil-component>
+        </div>
+      </div>
+
+      <article class="as-lead" anvil:name="lead_box" anvil:dom-node="lead">
+        <div class="as-lead-art"><span class="as-lead-cover" anvil:dom-node="lead_cover" aria-hidden="true"></span>
+          <span class="as-lead-flag" anvil:dom-node="lead_flag"></span></div>
+        <div class="as-lead-body">
+          <div class="as-row as-tight"><a anvil:dom-node="lead_cat"></a><span anvil:dom-node="lead_ev"></span></div>
+          <h2><a class="as-stretch" anvil:dom-node="lead_link"></a></h2>
+          <p class="as-lead-dek" anvil:dom-node="lead_dek"></p>
+          <div class="as-lead-foot">
+            <a class="as-byline" anvil:dom-node="lead_by"><span anvil:dom-node="lead_by_av"></span><span><b anvil:dom-node="lead_by_name"></b><span anvil:dom-node="lead_by_extra"></span></span></a>
+            <span class="as-meta"><span anvil:dom-node="lead_src"></span><span anvil:dom-node="lead_boops"></span></span>
+          </div>
+        </div>
+      </article>
+
+      <section anvil:name="list_box">
+        <h2 class="as-section" anvil:dom-node="list_title">🧫 Fresh from the lab</h2>
+        <anvil-component type="RepeatingPanel" name="card_panel" prop:item_template="Adorable_Science.Items.ArticleCard" prop:role='["cards"]'></anvil-component>
+      </section>
+
+      <section class="as-watch ytf" id="watch" anvil:name="watch_box">
+        <div class="ytf-in">
+          <div class="ytf-copy">
+            <h2>See Adorable Science in about a minute</h2>
+            <p>A short video tour of what Adorable Science does and how it works.</p>
+            <a class="ytf-link" href="https://www.youtube.com/watch?v=eoGeoGcAmg8" target="_blank" rel="noopener"><svg viewBox="0 0 28 20" width="20" height="14" aria-hidden="true"><rect width="28" height="20" rx="5" fill="#FF0033"/><path d="M11.2 5.8v8.4l7.3-4.2z" fill="#fff"/></svg>Watch on YouTube &#8599;</a>
+          </div>
+          <div>
+            <div class="ytf-frame" anvil:dom-node="yt_frame">
+              <button type="button" class="ytf-cover" anvil:dom-node="yt_cover" aria-label="Play the Adorable Science video (1:11)">
+                <img src="_/theme/yt-cover.jpg" alt="" loading="lazy" decoding="async" width="960" height="540">
+                <span class="ytf-play" aria-hidden="true"><svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.3.3 34 .3 34 .3s-21.3 0-26.5 1.4a8.5 8.5 0 0 0-6 6C.1 13 .1 24 .1 24s0 11 1.4 16.3a8.5 8.5 0 0 0 6 6c5.2 1.4 26.5 1.4 26.5 1.4s21.3 0 26.5-1.4a8.5 8.5 0 0 0 6-6C67.9 35 67.9 24 67.9 24s0-11-1.4-16.3z" fill="#FF0033"/><path d="M45 24 27 14v20z" fill="#fff"/></svg></span>
+                <span class="ytf-len">1:11</span>
+              </button>
+            </div>
+            <p class="ytf-note">The video loads from YouTube when you press play.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </anvil-block>
+</anvil-form>

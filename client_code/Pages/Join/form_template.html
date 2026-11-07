@@ -1,0 +1,37 @@
+<anvil-form layout="Adorable_Science.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="as-page">
+      <div class="as-auth">
+        <div class="as-auth-art">
+          <anvil-component type="Adorable_Science.Components.Mascot" name="mascot" prop:size="as-mascot-md"></anvil-component>
+        </div>
+        <div class="as-panel as-auth-card">
+          <h1 anvil:dom-node="heading">Welcome back, scientist!</h1>
+          <p class="as-sub" anvil:dom-node="sub">Sign in to write, boop and manage your articles.</p>
+          <anvil-component type="Label" name="message" prop:visible="false"></anvil-component>
+          <ul class="as-perks" anvil:dom-node="perks" hidden>
+            <li>✍️ Write articles about discoveries you love</li>
+            <li>🔬 Lab Directors review every article before it's published</li>
+            <li>🪪 Get a writer profile with badges</li>
+          </ul>
+          <label class="as-field"><span class="as-field-label">Email</span>
+            <anvil-component type="TextBox" name="email_box" prop:type="email"></anvil-component></label>
+          <label class="as-field" anvil:name="password_field"><span class="as-field-label">Password</span>
+            <anvil-component type="TextBox" name="password_box" prop:hide_text="true"></anvil-component></label>
+          <div anvil:name="consent_box" anvil:dom-node="consent"></div>
+          <anvil-component type="Button" name="submit_button" prop:text="🔓 Sign in" prop:role='["btn", "btn-primary", "btn-block"]'></anvil-component>
+          <div anvil:name="google_part">
+            <p class="as-or">or</p>
+            <anvil-component type="Button" name="google_button" prop:text="Continue with Google" prop:icon="_/theme/google-g.svg" prop:role='["btn", "btn-block", "au-google"]'></anvil-component>
+          </div>
+          <div class="as-auth-switch">
+            <p anvil:name="switch_login">New here? <button type="button" class="as-linkbtn" data-mode="signup" anvil:on-dom:click="self.mode_click">Create an account</button>
+              · <button type="button" class="as-linkbtn" data-mode="reset" anvil:on-dom:click="self.mode_click">Forgot password?</button></p>
+            <p anvil:name="switch_signup">Already have an account? <button type="button" class="as-linkbtn" data-mode="login" anvil:on-dom:click="self.mode_click">Sign in</button></p>
+            <p anvil:name="switch_reset"><button type="button" class="as-linkbtn" data-mode="login" anvil:on-dom:click="self.mode_click">← Back to sign in</button></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </anvil-block>
+</anvil-form>

@@ -1,0 +1,18 @@
+<anvil-form layout="Adorable_Science.Layouts.Shell">
+  <anvil-block slot="content">
+    <div class="as-page">
+      <header class="as-pagehead">
+        <div><h1>🧑‍🔬 Meet our writers</h1>
+          <p class="as-sub">The lab roster: the curious minds behind every published discovery.</p></div>
+        <div class="as-row"><a class="as-btn as-btn-primary" href="#join" anvil:dom-node="join_link">🥼 Join the lab</a></div>
+      </header>
+      <div class="as-empty" anvil:name="empty_box">
+        <anvil-component type="Adorable_Science.Components.Mascot" name="empty_mascot" prop:size="as-mascot-md"></anvil-component>
+        <h2 class="as-empty-title">No published writers yet</h2>
+        <p>Writers appear here after their first article is approved.</p>
+        <div class="as-row as-center"><a class="as-btn as-btn-primary" href="#join/write" anvil:dom-node="first_link">✍️ Become the first</a></div>
+      </div>
+      <anvil-component type="RepeatingPanel" name="writer_panel" prop:item_template="Adorable_Science.Items.WriterCard" prop:role='["cards", "cards-writers"]'></anvil-component>
+    </div>
+  </anvil-block>
+</anvil-form>
