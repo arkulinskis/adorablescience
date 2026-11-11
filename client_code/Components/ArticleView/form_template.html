@@ -1,12 +1,11 @@
 ---
 custom_component: true
-properties: []
-toolbox_item:
-  title: Article view
-  group: Adorable Science
-help_text: |
+help_text: |-
   One article as readers see it: status banner (drafts), head, body, sources. Used by the reader page and the
   review desk, so reviewers see exactly what readers will. Call show(article) with a get_article / get_review reply.
+toolbox_item:
+  group: Adorable Science
+  title: Article view
 ---
 <div class="as-articleview">
   <div class="as-banner" anvil:dom-node="banner" hidden><span anvil:dom-node="banner_emoji" aria-hidden="true"></span><span><b anvil:dom-node="banner_title"></b> <span anvil:dom-node="banner_text"></span></span></div>

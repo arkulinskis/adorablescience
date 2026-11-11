@@ -1,19 +1,18 @@
 ---
 custom_component: true
+help_text: Bea the Beaker, the app's mascot (an SVG drawing). mood picks the mouth, size a CSS size class.
 properties:
-  - name: mood
-    type: string
-    default_value: happy
-    description: Bea's face - happy, sad or wow
-  - name: size
-    type: string
-    default_value: ""
-    description: CSS class for the size (as-brand-mark, as-mascot-sm, as-mascot-md, as-mascot-hero)
+- default_value: happy
+  description: Bea's face - happy, sad or wow
+  name: mood
+  type: string
+- default_value: ''
+  description: CSS class for the size (as-brand-mark, as-mascot-sm, as-mascot-md, as-mascot-hero)
+  name: size
+  type: string
 toolbox_item:
-  title: Mascot
   group: Adorable Science
-help_text: |
-  Bea the Beaker, the app's mascot (an SVG drawing). mood picks the mouth, size a CSS size class.
+  title: Mascot
 ---
 <span class="as-mascot-box"><svg anvil:dom-node="svg" class="as-mascot" viewBox="0 0 120 140" aria-hidden="true" focusable="false">
   <circle class="as-bub as-bub1" cx="50" cy="16" r="5"/>
