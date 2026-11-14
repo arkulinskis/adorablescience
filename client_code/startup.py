@@ -3,6 +3,9 @@ spinner, Bea the bubbling beaker, shows meanwhile), the Privacy & Terms kit, the
 import anvil.server
 
 from . import legal, router, state
+from . import session_guard
+
+session_guard.start()  # an expired server session reloads quietly instead of "Session expired, refresh now"
 
 LEGAL_THEME = {"accent": "#6c4fd8"}  # colours for the Privacy & Terms page (match --as-lav-deep in app.css)
 
