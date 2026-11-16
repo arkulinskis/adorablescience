@@ -5,6 +5,7 @@ from anvil.tables import app_tables
 
 from . import lab_config as C
 from .Lab import Oops, api, brief, card, clean, ensure_profile, is_admin, me, profile, same_user
+from . import AdminAccess
 
 
 @api
@@ -15,7 +16,7 @@ def get_me():
         return None
     ensure_profile(user)
     # (.get() would fail once there are several admins, so search and count instead)
-    if not user["is_admin"] and len(app_tables.users.search(is_admin=True)) == 0:
+    if not user["is_admin"] and AdminAccess.may_promote(user):
         user["is_admin"] = True
     d = profile(user)
     d["email"] = user["email"]
