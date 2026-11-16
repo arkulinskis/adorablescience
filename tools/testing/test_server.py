@@ -74,7 +74,10 @@ assert call("get_me") is None
 oops(call("my_articles"), "sign in")
 as_user(first)
 me = fine(call("get_me"))
-assert me["is_admin"] is True and me["uid"] and me["name"] and me["avatar"], "the first person becomes a Lab Director"
+assert me["is_admin"] is False and me["uid"] and me["name"] and me["avatar"], "nobody becomes a Lab Director automatically (tick is_admin, or the admin_emails App Secret)"
+first["is_admin"] = True  # what the user does in the users table
+me = fine(call("get_me"))
+assert me["is_admin"] is True
 as_user(writer)
 me = fine(call("get_me"))
 assert me["is_admin"] is False and me["pending_reviews"] == 0 and "email" in me
