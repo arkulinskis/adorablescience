@@ -59,11 +59,11 @@ SEO = {
  ],
  "site": "https://adorablescience.com",
  "updated": "2026-11-16",
- "icon": "favicon.png",
+ "icon": "icon-512.png",
  "colors": {
   "bg": "#1d1f24",
   "ink": "#ffffff",
-  "brand": "#6c54e4",
+  "brand": "#2f6fed",
   "on": "#ffffff"
  }
 }
