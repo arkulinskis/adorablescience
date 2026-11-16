@@ -1,36 +1,5 @@
 allow_embedding: false
 db_schema:
-  error_log:
-    client: none
-    columns:
-    - admin_ui: {order: 0, width: 200}
-      name: when
-      type: datetime
-    - admin_ui: {order: 1, width: 120}
-      name: source
-      type: string
-    - admin_ui: {order: 2, width: 160}
-      name: kind
-      type: string
-    - admin_ui: {order: 3, width: 300}
-      name: message
-      type: string
-    - admin_ui: {order: 4, width: 300}
-      name: traceback
-      type: string
-    - admin_ui: {order: 5, width: 200}
-      name: page
-      type: string
-    - admin_ui: {order: 6, width: 120}
-      name: session
-      type: string
-    - admin_ui: {order: 7, width: 200}
-      name: user
-      target: users
-      type: link_single
-    indexes: []
-    server: full
-    title: Error log
   articles:
     client: none
     columns:
@@ -116,6 +85,37 @@ db_schema:
     indexes: []
     server: full
     title: Boops
+  error_log:
+    client: none
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: when
+      type: datetime
+    - admin_ui: {order: 1, width: 120}
+      name: source
+      type: string
+    - admin_ui: {order: 2, width: 160}
+      name: kind
+      type: string
+    - admin_ui: {order: 3, width: 300}
+      name: message
+      type: string
+    - admin_ui: {order: 4, width: 300}
+      name: traceback
+      type: string
+    - admin_ui: {order: 5, width: 200}
+      name: page
+      type: string
+    - admin_ui: {order: 6, width: 120}
+      name: session
+      type: string
+    - admin_ui: {order: 7, width: 200}
+      name: user
+      target: users
+      type: link_single
+    indexes: []
+    server: full
+    title: Error log
   lab_log:
     client: none
     columns:
@@ -242,10 +242,7 @@ db_schema:
     indexes: []
     server: full
     title: Users
-metadata:
-  description: "Fuzzy-hearted, well-sourced science news written by the community. Anyone can write an article; Lab Directors review every one before it is published."
-  logo_img: "asset:favicon.png"
-  title: "Adorable Science: wholesome, well-sourced science news"
+metadata: {description: 'Fuzzy-hearted, well-sourced science news written by the community. Anyone can write an article; Lab Directors review every one before it is published.', logo_img: 'asset:favicon.png', title: 'Adorable Science: wholesome, well-sourced science news'}
 name: Adorable Science
 native_deps:
   head_html: |
@@ -295,6 +292,7 @@ runtime_options:
   client_version: '3'
   server_spec: {base: python314}
   version: 3
+secrets: {}
 services:
 - client_config: {enable_v2: true}
   server_config: {}
