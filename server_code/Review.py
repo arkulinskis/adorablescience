@@ -3,7 +3,32 @@ import anvil.tables as tables
 from anvil.tables import app_tables
 
 from . import lab_config as C
-from .Lab import Oops, api, card, clean, full_article, get_article_row, log, me, now
+from .Lab import Oops, api, card, clean, full_article, get_article_row, log, me, now, opt
+
+
+def _snapshot_checks(a):
+    """Study snapshot lines: who or what was studied, and a caveat when the results are early-stage."""
+    key = opt(a, "study_subject")
+    subject = C.STUDY_SUBJECT.get(key)
+    size = opt(a, "study_size")
+    caveat = opt(a, "caveat")
+    if subject:
+        who = "%s %s" % (subject["emoji"], subject["phrase"]) + (" · %s" % size if size else "")
+    else:
+        who = "Missing: people, animals, cells, a model…? Ask the writer to fill in the study snapshot."
+    needed = C.needs_caveat(key, a["evidence"])
+    if not needed:
+        why = "Not needed for %s" % (subject["label"].lower() if subject else "this evidence level")
+    elif caveat:
+        why = "🐴 " + caveat
+    elif subject and subject["early"]:
+        why = "Missing: results in %s need a \"Hold your horses\" line" % subject["label"].lower()
+    else:
+        why = "Missing: preprints and speculative stories need a \"Hold your horses\" line"
+    return [
+        {"ok": subject is not None, "label": "Says who or what was studied", "detail": who},
+        {"ok": not needed or bool(caveat), "label": "Early-stage results have a caveat", "detail": why},
+    ]
 
 
 def _checks(a, sources):
@@ -14,7 +39,7 @@ def _checks(a, sources):
     insecure = [s for s in sources if s["url"].lower().startswith("http://")]
     news_only = n > 0 and all(s["kind"] == "news" for s in sources)
     words = len(body.split())
-    return [
+    checks = [
         {"ok": n >= 1, "label": "Has at least one source",
          "detail": "%d source%s linked" % (n, "" if n == 1 else "s") if n else "No sources at all. Be extra skeptical."},
         {"ok": n >= 3, "label": "Well sourced (3+)", "detail": C.citation_meter(n, len(cited))["label"]},
@@ -28,6 +53,8 @@ def _checks(a, sources):
         {"ok": bool(a["evidence"]), "label": "Evidence level declared",
          "detail": C.EVIDENCE_LEVEL[a["evidence"]]["label"] if a["evidence"] in C.EVIDENCE_LEVEL else "Missing"},
     ]
+    # (the "No retracted or flagged papers" line comes later from Sources.check_retractions: it needs Crossref)
+    return checks + _snapshot_checks(a)
 
 
 @api(admin=True)

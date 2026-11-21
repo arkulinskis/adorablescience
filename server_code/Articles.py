@@ -12,7 +12,7 @@ from . import lab_config as C
 from . import Render
 from . import Starters
 from .Lab import (Oops, api, card, clean, full_article, get_article_row, is_admin, log, me,
-                  next_specimen_no, now, same_user, sources_of)
+                  next_specimen_no, now, opt, put_opt, same_user, sources_of)
 
 
 @api
@@ -81,8 +81,21 @@ def get_article_for_edit(no):
         "evidence": a["evidence"] or "",
         "cover": a["cover"] or "",
         "review_note": a["review_note"] or "",
+        "study_subject": opt(a, "study_subject"),
+        "study_size": opt(a, "study_size"),
+        "caveat": opt(a, "caveat"),
         "sources": [{"url": s["url"], "title": s["title"], "publisher": s["publisher"], "kind": s["kind"]}
                     for s in sources_of(a)],
+    }
+
+
+def _clean_snapshot(fields):
+    """The study snapshot (optional, so writing stays low-friction): an unknown subject becomes ''."""
+    subject = fields.get("study_subject")
+    return {
+        "study_subject": subject if subject in C.STUDY_SUBJECT else "",
+        "study_size": clean(fields.get("study_size"), C.SIZE_MAX),
+        "caveat": " ".join(clean(fields.get("caveat"), C.CAVEAT_MAX * 2).split())[:C.CAVEAT_MAX],
     }
 
 
@@ -159,6 +172,7 @@ def save_article(no, fields, sources, submit=False, acknowledge_unsourced=False)
         a = _create(user, values)
     else:
         a.update(**values)
+    put_opt(a, **_clean_snapshot(fields))  # its own guarded writes: works before the schema change is accepted
 
     for s in app_tables.sources.search(article=a):
         s.delete()

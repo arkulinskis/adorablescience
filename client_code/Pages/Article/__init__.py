@@ -22,6 +22,9 @@ class Article(ArticleTemplate):
         d["edit_link"].setAttribute("href", "#write/%d" % a["no"])
         bits.show(d["review_link"], bool(a["viewer_is_admin"]) and a["status"] == "pending")
         d["review_link"].setAttribute("href", "#review/%d" % a["no"])
+        self.copy_button.text = "🔗 Copy link" if self._published() else "🔗 Copy preview link"
+        self.share_button.visible = self._published() and bool(window.matchMedia("(pointer: coarse)").matches) \
+            and bool(window.Reflect.has(window.navigator, "share"))
 
         bits.show(d["boop_box"], a["status"] == "published")
         bits.show(d["boop_hint"], state.me() is None)
@@ -62,10 +65,25 @@ class Article(ArticleTemplate):
             button.offsetWidth  # restart the animation
             button.classList.add("as-boop-pop")
 
+    def _published(self):
+        return self.a["status"] == "published"
+
     @handle("copy_button", "click")
     def copy_button_click(self, **event_args):
+        """Published: the story's real address (/a/N/slug, with its own link preview). Otherwise the private
+        #article/N address, which only the writer and Lab Directors can open."""
+        url = bits.public_link(self.a) if self._published() else window.location.href
         try:
-            window.navigator.clipboard.writeText(window.location.href)
-            state.toast("Link copied! Share the science 🔗", "ok")
+            window.navigator.clipboard.writeText(url)
+            state.toast("Link copied! Share the science 🔗" if self._published()
+                        else "Preview link copied. Only you and Lab Directors can open it until it's published. 🔬", "ok")
         except Exception:
-            state.toast("Couldn't copy. You can copy the address from your browser bar.")
+            state.toast("Couldn't copy. Here's the link: %s" % url)
+
+    @handle("share_button", "click")
+    def share_button_click(self, **event_args):
+        done = bits.share(self.a["title"], self.a["dek"], bits.public_link(self.a))
+        if done is False:
+            state.toast("Link copied! Share the science 🔗", "ok")
+        elif done is None:
+            state.toast("Couldn't share. Use Copy link instead.")

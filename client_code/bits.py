@@ -52,6 +52,41 @@ def evidence(node, ev):
         text(node, "%s %s" % (ev["emoji"], ev["label"]))
 
 
+def early_chip(node, subject):
+    """The small "🐭 In animals" chip on cards of early-stage studies (animals, cells, models); hidden otherwise."""
+    on = bool(subject and subject.get("early"))
+    show(node, on)
+    if on:
+        node.className = "as-early"
+        node.setAttribute("title", "%s: early-stage results, not tested in people yet" % subject["phrase"])
+        text(node, subject["chip"])
+
+
+def public_link(c):
+    """The story's real web address (https://adorablescience.com/a/12/slug) from a card() dict."""
+    from anvil.js import window
+    return "%s/a/%d/%s" % (window.location.origin, int(c["no"]), c.get("slug") or "story")
+
+
+def share(title, text_, url):
+    """Share with the phone's share sheet when there is one (True), else copy the link (False). None = it failed."""
+    from anvil.js import window
+    nav = window.navigator
+    coarse = bool(window.matchMedia("(pointer: coarse)").matches)
+    if coarse and window.Reflect.has(nav, "share"):
+        try:
+            nav.share({"title": title, "text": text_, "url": url})
+            return True
+        except Exception as e:  # the person closed the sheet (AbortError): fine
+            if "Abort" in str(e):
+                return True
+    try:
+        nav.clipboard.writeText(url)
+        return False
+    except Exception:
+        return None
+
+
 def sources_badge(node, n):
     n = int(n or 0)
     if n <= 0:

@@ -90,6 +90,7 @@ class Front(FrontTemplate):
         bits.text(n["lead_flag"], "⭐ Featured discovery" if c["featured"] else "🆕 Latest discovery")
         bits.cat_chip(n["lead_cat"], c["category"])
         bits.evidence(n["lead_ev"], c["evidence"])
+        bits.early_chip(n["lead_early"], c.get("subject"))
         bits.text(n["lead_link"], c["title"])
         n["lead_link"].setAttribute("href", "#article/%d" % c["no"])
         bits.text(n["lead_dek"], c["dek"])

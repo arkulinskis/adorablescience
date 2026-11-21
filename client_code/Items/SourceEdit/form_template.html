@@ -2,6 +2,11 @@
   <span class="as-src-n" anvil:dom-node="n" aria-hidden="true">1</span>
   <div class="as-src-fields">
     <anvil-component type="TextBox" name="url_box" prop:type="url" prop:placeholder="https://doi.org/…  (link to the study, dataset or page)"></anvil-component>
+    <div class="as-src-doi" anvil:dom-node="doi_row" hidden>
+      <anvil-component type="Button" name="fill_button" prop:text="✨ Fill from DOI" prop:role='["btn", "btn-soft", "btn-sm"]'></anvil-component>
+      <span class="as-muted as-small">Title, journal and type from Crossref, plus a retraction check</span>
+    </div>
+    <p class="as-src-flag" anvil:dom-node="flag" role="status" hidden></p>
     <div class="as-src-row2">
       <anvil-component type="TextBox" name="title_box" prop:placeholder="Title (e.g. the paper's name)"></anvil-component>
       <anvil-component type="TextBox" name="pub_box" prop:placeholder="Publisher (Nature, NASA…)"></anvil-component>

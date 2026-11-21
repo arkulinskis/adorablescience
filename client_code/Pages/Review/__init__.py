@@ -1,8 +1,11 @@
 from anvil import *
+from anvil.js import window
 
 from ._anvil_designer import ReviewTemplate
 from ... import api, bits, router, state
 from ...lab_config import NOTE_MAX, STATUSES
+
+DOI_LINE = "No retracted or flagged papers"
 
 TABS = ("queue", "published", "members")
 
@@ -82,15 +85,30 @@ class Review(ReviewTemplate):
         self.dom_nodes["reader_link"].setAttribute("href", "#article/%d" % a["no"])
         self.view.show(a)
         self.notebook.show(a.get("history"))
-        passed = sum(1 for c in a["checks"] if c["ok"])
-        bits.text(self.dom_nodes["passed"], "%d/%d" % (passed, len(a["checks"])))
-        self.check_panel.items = a["checks"]
+        self._show_checks(a["checks"] + [{"ok": None, "wait": True, "label": DOI_LINE,
+                                          "detail": "Checking the DOI links with Crossref + Retraction Watch…"}])
+        window.setTimeout(self._check_dois, 80)  # after the page is drawn: Crossref can take a few seconds
         self.meter.show(a["sources"], a["cited"])
         pending = a["status"] == "pending"
         self.decide_box.visible = pending
         self.closed_box.visible = not pending
         bits.text(self.dom_nodes["closed_status"], STATUSES.get(a["status"], ("?",))[0])
         state.maxlength(self.note_box, NOTE_MAX)
+
+    def _show_checks(self, checks):
+        passed = sum(1 for c in checks if c["ok"] is True)
+        bits.text(self.dom_nodes["passed"], "%d/%d" % (passed, len(checks)))
+        self.check_panel.items = checks
+
+    def _check_dois(self):
+        """The retraction line (Sources.check_retractions), quietly: if it fails, say it couldn't be checked."""
+        try:
+            r = state.call_quiet("check_retractions", self.no)
+        except Exception:
+            r = None
+        if not isinstance(r, dict) or "__oops__" in r:
+            r = {"ok": None, "label": DOI_LINE, "detail": "Couldn't check just now. Open the DOI links to be sure."}
+        self._show_checks(self.a["checks"] + [r])
 
     def _decided(self, message):
         state.toast(message, "ok")

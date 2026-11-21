@@ -134,6 +134,31 @@ def profile(user):
     return p
 
 
+# ---------- columns added after launch ----------
+# New columns (study_subject, study_size, caveat: Nov 2026) exist in the live database only once the user accepts
+# Anvil's Schema Mismatch alert. Until then reads give the default and writes are skipped, so nothing breaks.
+
+def opt(row, col, default=""):
+    try:
+        v = row[col]
+    except Exception:
+        return default
+    return default if v is None else v
+
+
+def put_opt(row, **cols):
+    for col, value in cols.items():
+        try:
+            row[col] = value
+        except Exception:
+            pass
+
+
+def subject_of(key):
+    """The study-snapshot subject dict (lab_config.STUDY_SUBJECT) or None."""
+    return C.STUDY_SUBJECT.get(key or "")
+
+
 # ---------- articles ----------
 
 def get_article_row(no):
@@ -181,6 +206,8 @@ def card(a):
     return {
         "no": int(a["specimen_no"] or 0),
         "title": a["title"] or "Untitled specimen",
+        "slug": C.slugify(a["title"] or ""),
+        "subject": subject_of(opt(a, "study_subject")),
         "dek": a["dek"] or "",
         "category": cat,
         "evidence": ev,
@@ -219,6 +246,8 @@ def log(article, action, note=""):
 def full_article(a, viewer):
     """Everything needed to read an article. Private bits only for its author and admins."""
     d = card(a)
+    d["study_size"] = opt(a, "study_size")
+    d["caveat"] = opt(a, "caveat")
     sources = sources_of(a)
     d["sources_list"] = sources
     d["body_html"] = Render.markdown(a["body"] or "", sources)

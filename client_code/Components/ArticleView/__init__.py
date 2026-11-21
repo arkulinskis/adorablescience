@@ -45,6 +45,7 @@ class ArticleView(ArticleViewTemplate):
             bits.text(d["src_btn"], "📎 %s ↓" % bits.plural(n, "source"))
         else:
             bits.sources_badge(d["src_none"], 0)
+        self._snapshot(a)
 
         d["prose"].innerHTML = a.get("body_html") or ""  # safe: rendered and escaped by the server (Render.py)
 
@@ -54,6 +55,22 @@ class ArticleView(ArticleViewTemplate):
         bits.text(d["refs_title"], "📚 Sources (%d)" % len(sources))
         bits.show(d["gold"], len(sources) >= 3)
         self.refs_panel.items = sources
+
+    def _snapshot(self, a):
+        """The study snapshot strip (🐭 Studied in animals · 40 mice · 📄 Fresh peer-reviewed study) and the
+        "Hold your horses" caveat. Both stay hidden when the writer left the snapshot empty."""
+        d = self.dom_nodes
+        subject, size, ev = a.get("subject"), a.get("study_size") or "", a.get("evidence")
+        bits.show(d["snap"], bool(subject or size))
+        bits.show(d["snap_who"], bool(subject))
+        bits.text(d["snap_who"], "%s %s" % (subject["emoji"], subject["phrase"]) if subject else "")
+        bits.show(d["snap_size"], bool(size))
+        bits.text(d["snap_size"], "🔢 " + size if size else "")
+        bits.show(d["snap_ev"], bool(ev))
+        bits.text(d["snap_ev"], "%s %s" % (ev["emoji"], ev["label"]) if ev else "")
+        caveat = a.get("caveat") or ""
+        bits.show(d["horses"], bool(caveat))
+        bits.text(d["horses_text"], caveat)
 
     def src_click(self, event):
         target = self.dom_nodes["refs"] if not self.dom_nodes["refs"].hidden else self.dom_nodes["refs_none"]

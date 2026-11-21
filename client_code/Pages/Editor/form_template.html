@@ -45,10 +45,24 @@
             <div class="as-sources-head">
               <h2>📚 Sources <span class="as-pill-soft">the secret ingredient</span></h2>
               <p>Link the <b>original</b> study, dataset or expert page, not only news coverage of it. A DOI link
-              (https://doi.org/…) is perfect. Well-sourced articles are much more likely to be approved, and readers trust them more.</p>
+              (https://doi.org/…) is perfect: press <b>✨ Fill from DOI</b> and the title, journal and type fill themselves.
+              Well-sourced articles are much more likely to be approved, and readers trust them more.</p>
             </div>
             <anvil-component type="RepeatingPanel" name="source_panel" prop:item_template="Adorable_Science.Items.SourceEdit" prop:role='["contents"]'></anvil-component>
             <anvil-component type="Button" name="add_source_button" prop:text="＋ Add another source" prop:role='["btn", "btn-dashed"]'></anvil-component>
+            <div class="as-finder">
+              <h3 class="as-finder-title">🔎 Find the original study</h3>
+              <p class="as-small">Only have a news story? Type a few words from the paper's title, a lead author or the journal, and pick the paper.</p>
+              <div class="as-finder-bar">
+                <anvil-component type="TextBox" name="find_box" prop:type="search" prop:placeholder="e.g. wombat feces intestines stiffness"></anvil-component>
+                <anvil-component type="Button" name="find_button" prop:text="🔎 Find it" prop:role='["btn", "btn-sm"]'></anvil-component>
+              </div>
+              <p class="as-finder-msg" anvil:dom-node="find_msg" role="status" hidden></p>
+              <div class="as-picks" role="list" aria-label="Papers found">
+                <anvil-component type="RepeatingPanel" name="study_panel" prop:item_template="Adorable_Science.Items.StudyPick" prop:role='["contents"]'></anvil-component>
+              </div>
+              <p class="as-credit">Study search: Crossref · retraction data: Retraction Watch</p>
+            </div>
           </section>
         </div>
 
@@ -64,6 +78,17 @@
               <div class="as-covers" role="group" aria-labelledby="cover-label">
                 <anvil-component type="RepeatingPanel" name="cover_panel" prop:item_template="Adorable_Science.Items.Pick" prop:role='["contents"]'></anvil-component>
               </div></div>
+          </div>
+          <div class="as-panel as-snapdesk">
+            <h2 class="as-panel-title">🔍 Study snapshot <span class="as-pill-soft">optional</span></h2>
+            <p class="as-small as-snapdesk-help">Readers see it under your byline: <b>“In mice” matters.</b></p>
+            <label class="as-field"><span class="as-field-label">Who or what was studied?</span>
+              <anvil-component type="DropDown" name="subject_box" prop:include_placeholder="true" prop:placeholder="Pick one…"></anvil-component></label>
+            <label class="as-field"><span class="as-field-label">How many? <i anvil:dom-node="size_count">0/40</i></span>
+              <anvil-component type="TextBox" name="size_box" prop:placeholder="e.g. 40 mice · 1,200 people · 3 galaxies"></anvil-component></label>
+            <label class="as-field as-field-last"><span class="as-field-label">🐴 Hold your horses <i anvil:dom-node="caveat_count">0/180</i></span>
+              <anvil-component type="TextArea" name="caveat_box" prop:height="72" prop:placeholder="What it doesn't mean yet, e.g. “It worked in mice; nobody has tried it in people.”"></anvil-component></label>
+            <p class="as-snapdesk-hint" anvil:dom-node="caveat_hint" hidden>🐴 Early-stage results: reviewers look for a “Hold your horses” line.</p>
           </div>
           <div class="as-panel as-panel-actions">
             <anvil-component type="Button" name="submit_button" prop:text="🔬 Submit for review" prop:role='["btn", "btn-primary", "btn-block"]'></anvil-component>

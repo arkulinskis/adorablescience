@@ -29,12 +29,24 @@ class LabRow(LabRowTemplate):
         d["view_link"].setAttribute("href", "#article/%d" % c["no"])
         self.withdraw_button.visible = st == "pending"
         self.delete_button.visible = st in ("draft", "rejected")
+        self.share_button.visible = st == "published"
+        state.set_control_attr(self.share_button, "aria-label", "Share “%s”" % c["title"])
         state.set_control_attr(self.delete_button, "aria-label", "Delete “%s”" % c["title"])
 
     def _done(self, message):
         state.toast(message, "ok")
         if self.parent is not None:
             self.parent.raise_event("x-reload")
+
+    @handle("share_button", "click")
+    def share_button_click(self, **event_args):
+        """The story's real address (/a/N/slug): the phone's share sheet, or copied on a computer."""
+        url = bits.public_link(self.item)
+        done = bits.share(self.item["title"], self.item["dek"], url)
+        if done is False:
+            state.toast("Link copied! Paste it anywhere: it shows your story's own preview 🔗", "ok")
+        elif done is None:
+            state.toast("Couldn't copy. Here's the link: %s" % url)
 
     @handle("withdraw_button", "click")
     def withdraw_button_click(self, **event_args):

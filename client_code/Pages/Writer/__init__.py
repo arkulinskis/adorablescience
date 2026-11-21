@@ -1,19 +1,25 @@
 from anvil import *
+from anvil.js import window
 
 from ._anvil_designer import WriterTemplate
-from ... import api, bits
+from ... import api, bits, state
 from ...lab_config import domain_of
 
 
 class Writer(WriterTemplate):
-    """A writer's profile (#writer/<uid>): their lab badge, stats, badges and published articles."""
+    """A writer's profile (#writer/<uid>): their lab badge, stats, badges and published articles. Writers with a
+    published story also have a public portfolio at /w/<uid> (server_code/Public.py): "Copy portfolio link"."""
 
     def __init__(self, args=(), **properties):
         super().__init__(**properties)
         w = api.load("get_writer", args[0] if args else None)
+        self.w = w
         self.page_title = w["name"]
         d, st = self.dom_nodes, w["stats"]
         bits.show(d["edit_link"], bool(w["is_me"]))
+        self.portfolio_button.visible = bool(w["articles"]) and bool(w["uid"])
+        if w["is_me"]:
+            self.portfolio_button.text = "🔗 Copy my portfolio link"
         bits.avatar(d["av"], w, "xxl")
         bits.specimen(d["lab_id"], 0)
         bits.text(d["lab_id"], "LAB ID · %s" % (w["uid"] or "").upper())
@@ -39,3 +45,12 @@ class Writer(WriterTemplate):
         if w["is_me"]:
             bits.text(d["empty_title"], "No published articles yet")
             bits.text(d["empty_text"], "Your published articles will appear here. Drafts and articles in review stay in your lab.")
+
+    @handle("portfolio_button", "click")
+    def portfolio_button_click(self, **event_args):
+        url = "%s/w/%s" % (window.location.origin, self.w["uid"])
+        try:
+            window.navigator.clipboard.writeText(url)
+            state.toast("Portfolio link copied: a public page with every approved story. Perfect for a CV 🥼", "ok")
+        except Exception:
+            state.toast("Couldn't copy. Here's the link: %s" % url)

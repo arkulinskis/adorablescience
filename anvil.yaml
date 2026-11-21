@@ -65,6 +65,15 @@ db_schema:
     - admin_ui: {order: 19, width: 200}
       name: reading_min
       type: number
+    - admin_ui: {order: 20, width: 200}
+      name: study_subject
+      type: string
+    - admin_ui: {order: 21, width: 200}
+      name: study_size
+      type: string
+    - admin_ui: {order: 22, width: 200}
+      name: caveat
+      type: string
     indexes: []
     server: full
     title: Articles
@@ -248,7 +257,8 @@ native_deps:
   head_html: |
     <!-- Prepsto feedback panel (the only feedback channel): every Submit feedback link (data-prepsto-open) opens it -->
     <script src="https://prepsto.com/_/theme/widget.js" data-prepsto="7uhztrz" data-button="false" data-label="Submit feedback" async></script>
-    <script src="_/theme/legal-kit.js?v=ea2690e04a"></script>
+    <script src="_/theme/legal-kit.js?v=e09921a06c"></script>
+    <link rel="alternate" type="application/rss+xml" title="Adorable Science: new discoveries" href="/feed.xml">
     <!-- seo:start (APP_MAKER/seo: edit seo/apps/adorablescience.json and run seo.py, not here) -->
     <link rel="canonical" href="https://adorablescience.com/">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -285,7 +295,7 @@ native_deps:
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="_/theme/icons.css?v=8f508d76cd">
-    <link rel="stylesheet" href="_/theme/app.css?v=6163241162">
+    <link rel="stylesheet" href="_/theme/app.css?v=d0561a982c">
     <script src="_/theme/app-kit.js?v=58346bfe37"></script>
 package_name: Adorable_Science
 runtime_options:

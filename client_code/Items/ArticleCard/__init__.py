@@ -15,6 +15,7 @@ class ArticleCard(ArticleCardTemplate):
         bits.text(d["cover"], c["cover"])
         bits.specimen(d["spec"], c["no"])
         bits.cat_chip(d["cat"], c["category"])
+        bits.early_chip(d["early"], c.get("subject"))
         bits.text(d["link"], c["title"])
         d["link"].setAttribute("href", "#article/%d" % c["no"])
         bits.text(d["dek"], c["dek"])

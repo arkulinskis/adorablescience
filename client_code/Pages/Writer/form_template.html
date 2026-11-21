@@ -1,7 +1,12 @@
 <anvil-form layout="Adorable_Science.Layouts.Shell">
   <anvil-block slot="content">
     <div class="as-page">
-      <div class="as-crumbs"><a href="#writers">← All writers</a><a class="as-btn as-btn-soft as-btn-sm" href="#me" anvil:dom-node="edit_link" hidden>✏️ Edit profile</a></div>
+      <div class="as-crumbs"><a href="#writers">← All writers</a>
+        <div class="as-row as-tight">
+          <anvil-component type="Button" name="portfolio_button" prop:text="🔗 Copy portfolio link" prop:visible="false" prop:role='["btn", "btn-ghost", "btn-sm"]'></anvil-component>
+          <a class="as-btn as-btn-soft as-btn-sm" href="#me" anvil:dom-node="edit_link" hidden>✏️ Edit profile</a>
+        </div>
+      </div>
       <section class="as-profile">
         <div class="as-profile-dish"><span anvil:dom-node="av"></span></div>
         <div class="as-profile-main">

@@ -1,9 +1,11 @@
 # Starters: five short, sourced articles a Lab Director can publish into an empty lab, so the front page isn't bare
 # on launch day. They're bylined "Adorable Science team" (an account nobody can sign in to) and say so in a lab note.
 # Every study was checked against its DOI record (Crossref) on 2026-11-03; keep claims to what the papers report.
+# subject = the study snapshot's "who was studied", from each article's own text (all five study animals); no
+# sample sizes or caveats are filled in, because the texts don't state them.
 from anvil.tables import app_tables
 
-from .Lab import api, Oops, me, now, log, next_specimen_no, _rand_uid
+from .Lab import api, Oops, me, now, log, next_specimen_no, put_opt, _rand_uid
 from . import lab_config as C
 
 TEAM_EMAIL = "team@adorablescience.invalid"  # .invalid: never a real inbox, and no password, so no one can sign in
@@ -18,7 +20,7 @@ STARTERS: list[dict] = [
         title="Why wombat poop comes out in cubes",
         dek="Wombats are the only animals known to make cube-shaped droppings. Engineers worked out how a soft, "
             "round gut manages it.",
-        category="critters", evidence="peer", cover="🧪",
+        category="critters", evidence="peer", cover="🧪", subject="animals",
         body="""Bare-nosed wombats leave neat little cubes of poop on rocks and logs, and for a long time nobody knew how a round, squishy intestine could make corners.
 
 ## Stiff bits and soft bits
@@ -39,7 +41,7 @@ Wombats use their droppings to mark their patch, often on raised spots. Cubes ar
         title="Dogs grew a special muscle for puppy-dog eyes",
         dek="A tiny eyebrow muscle that wolves mostly lack lets dogs make the face that melts us. Shelter dogs that "
             "use it more get adopted faster.",
-        category="critters", evidence="peer", cover="🧬",
+        category="critters", evidence="peer", cover="🧬", subject="animals",
         body="""You know the look: eyebrows up, eyes big and sad. It turns out dogs have the anatomy for it and their wild cousins mostly don't.
 
 ## The eyebrow muscle
@@ -58,7 +60,7 @@ An earlier study filmed dogs in rescue shelters meeting a stranger. The dogs tha
     dict(
         title="Water bears went to space and lived",
         dek="Dried-out tardigrades rode outside a spacecraft for ten days in orbit. Many came home and laid eggs.",
-        category="space", evidence="established", cover="🛰️",
+        category="space", evidence="established", cover="🛰️", subject="animals",
         body="""Tardigrades, or water bears, are eight-legged animals smaller than a grain of sand. When their home dries out they curl up into a dry 'tun' and wait, sometimes for years.
 
 ## The experiment
@@ -78,7 +80,7 @@ It was the first time any animal was shown to survive the combined vacuum and ra
         title="Rats giggle when tickled, and their brains show it",
         dek="Tickled rats squeak in ultrasound and chase the tickling hand. Neuroscientists found the brain cells "
             "behind it.",
-        category="brain", evidence="peer", cover="🧠",
+        category="brain", evidence="peer", cover="🧠", subject="animals",
         body="""Rats can't laugh the way we do, but when you tickle them they make fast, high squeaks, around 50 kHz, far too high for us to hear without a bat detector.
 
 ## Inside a ticklish brain
@@ -96,7 +98,7 @@ Rats that were anxious, for example placed on a raised platform under bright lig
         title="Bumblebees roll tiny balls just for fun",
         dek="With no food on offer, bumblebees kept rolling little wooden balls around. Researchers say it ticks "
             "every box for play.",
-        category="critters", evidence="peer", cover="🐝",
+        category="critters", evidence="peer", cover="🐝", subject="animals",
         body="""Play is easy to spot in puppies and kittens. But insects? A study from Queen Mary University of London says bumblebees do it too.
 
 ## The ball pit
@@ -154,6 +156,7 @@ def _publish(reviewer):
             boops=0, title=s["title"], dek=s["dek"], body=body, category=s["category"], evidence=s["evidence"],
             cover=s["cover"], n_sources=len(s["sources"]), n_cited=len(cited),
             reading_min=max(1, int(round(len(body.split()) / 200.0))))
+        put_opt(a, study_subject=s.get("subject", ""))
         for k, src in enumerate(s["sources"]):
             app_tables.sources.add_row(article=a, position=k, **src)
         log(a, "approved", "Starter article")

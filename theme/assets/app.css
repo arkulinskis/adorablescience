@@ -570,6 +570,39 @@ a.as-chip[href]:hover { background: var(--as-card); }
 .as-modal-body ul { padding-left: 20px; }
 .as-modal-body .as-field { margin-top: 10px; }
 
+/* study snapshot (Nov 2026): the strip under the byline, the "Hold your horses" caveat, the early-stage chip,
+   and the writing-desk panel */
+.as-snap { display: flex; flex-wrap: wrap; gap: 4px 10px; margin: 12px 0 0; padding: 8px 14px; background: var(--as-card); border: 2px dashed var(--as-line); border-radius: 14px; font-weight: 800; font-size: .9rem; }
+.as-snap > span:not([hidden]) ~ span:not([hidden])::before { content: "·"; margin-right: 10px; color: var(--as-muted); }
+.as-horses { display: block; margin: 18px 0 6px; padding: 13px 17px; background: var(--as-butter); border: 2.5px solid var(--as-line); border-radius: 18px; box-shadow: var(--as-pop-sm); font-size: 1rem; max-width: var(--measure); }
+.as-horses-tag { display: block; font: 700 .8rem var(--as-mono); letter-spacing: .04em; margin-bottom: 2px; }
+.as-early { display: inline-flex; align-items: center; gap: 4px; font-weight: 800; font-size: .8rem; padding: 3px 11px; min-height: 26px; border-radius: 99px; background: var(--as-peach); border: 2px dashed var(--as-line); color: var(--as-ink); white-space: nowrap; position: relative; z-index: 2; }
+.as-snapdesk-help { margin: -4px 0 12px !important; color: var(--as-ink-soft); }
+.as-field-last { margin-bottom: 0; }
+.as-snapdesk-hint { margin: 10px 0 0 !important; padding: 8px 12px; background: var(--as-butter); border: 2px dashed var(--as-butter-deep); border-radius: 12px; font-weight: 700; font-size: .85rem; }
+
+/* DOI magic (Crossref): fill a source, the retraction note, find the original study */
+.as-src-doi { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.as-src-flag { margin: 0; padding: 8px 12px; border-radius: 12px; background: var(--as-peach); border: 2px solid var(--as-peach-deep); font-weight: 800; font-size: .88rem; color: var(--as-ink); }
+.as-src-flag-soft { background: var(--as-butter); border-color: var(--as-butter-deep); }
+.as-finder { margin-top: 18px; padding: 16px; background: var(--as-card); border: 2.5px dashed var(--as-line); border-radius: 20px; }
+.as-finder-title { font-size: 1.15rem !important; margin: 0 0 4px !important; }
+.as-finder > p { margin: 0 0 10px; color: var(--as-ink-soft); }
+.as-finder-bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.as-finder .as-finder-msg { margin: 10px 0 0; font-weight: 700; color: var(--as-ink); }
+.as-picks { display: grid; gap: 8px; margin-top: 10px; }
+.as-studypick { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 10px 12px; background: var(--as-paper); border: 2px solid var(--as-line); border-radius: 14px; }
+.as-studypick-main { display: grid; gap: 3px; min-width: 0; }
+.as-studypick-title { font-weight: 800; line-height: 1.3; }
+.as-studypick-meta { color: var(--as-ink-soft); font-size: .8rem; overflow-wrap: anywhere; }
+.as-credit { margin: 10px 0 0 !important; font: 400 .75rem var(--as-mono); color: var(--as-muted) !important; }
+.as-check-row.as-unk { background: var(--as-sky); }
+@media (max-width: 640px) {
+  .as-studypick { grid-template-columns: minmax(0, 1fr); }
+  .as-studypick .anvil-role-btn { justify-self: start; }
+  .as-snap { font-size: .85rem; }
+}
+
 /* smaller screens */
 @media (max-width: 960px) {
   .as-editor { grid-template-columns: 1fr; }

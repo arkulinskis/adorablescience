@@ -70,6 +70,25 @@ LAB_FACTS = [
     "Your body contains roughly as many bacterial cells as human cells.",
 ]
 
+# Study snapshot: who or what was studied? (key, choice label, emoji, reader phrase, early-stage, card chip)
+# Early-stage results (animals, cells, models) are where hype lives: their cards get a chip and reviewers look for a
+# "Hold your horses" caveat.
+STUDY_SUBJECTS = [
+    ("people", "People", "🧑", "Studied in people", False, ""),
+    ("animals", "Animals", "🐭", "Studied in animals", True, "🐭 In animals"),
+    ("cells", "Cells in a dish", "🧫", "Studied in cells in a dish", True, "🧫 In cells"),
+    ("model", "Computer model", "💻", "A computer model", True, "💻 Model only"),
+    ("space", "Space & sky", "🔭", "Observed in space & sky", False, ""),
+    ("earth", "Earth & fossils", "🪨", "Studied in rocks, ice & fossils", False, ""),
+    ("review", "Many studies combined", "📚", "Many studies combined", False, ""),
+    ("other", "Something else", "🔍", "Something else was studied", False, ""),
+]
+STUDY_SUBJECT = {k: {"key": k, "label": l, "emoji": e, "phrase": p, "early": early, "chip": chip}
+                 for k, l, e, p, early, chip in STUDY_SUBJECTS}
+SIZE_MAX = 40
+CAVEAT_MAX = 180
+EARLY_EVIDENCE = ("preprint", "speculative")
+
 TITLE_MAX = 140
 DEK_MAX = 280
 BODY_MAX = 40000
@@ -80,6 +99,51 @@ BIO_MAX = 500
 
 _URL_RE = re.compile(r"^https?://[A-Za-z0-9.-]+\.[A-Za-z]{2,}(:[0-9]+)?([/?#][^\s]*)?$")
 _CITE_RE = re.compile(r"\[(\d{1,2})\](?!\()")
+_DOI_RE = re.compile(r"10\.[0-9]{4,9}/[^\s\"<>?#&]+")
+_SLUG_FROM = "àáâãäåāăąçćčďđèéêëēėęěìíîïīįıłñńňòóôõöøōőřśšşťùúûüūůűųýÿžźż"
+_SLUG_TO = "a" * 9 + "c" * 3 + "d" * 2 + "e" * 8 + "i" * 7 + "l" + "n" * 3 + "o" * 8 + "r" + "s" * 3 + "t" + "u" * 8 + "y" * 2 + "z" * 3
+
+
+def needs_caveat(subject, evidence):
+    """Early-stage results (animals, cells, models, preprints, speculation) should say what they don't mean yet."""
+    s = STUDY_SUBJECT.get(subject or "")
+    return bool(s and s["early"]) or (evidence or "") in EARLY_EVIDENCE
+
+
+def doi_of(text):
+    """The DOI inside a doi.org link, a publisher link or a bare 'doi:10.xxxx/...' (or '' when there is none)."""
+    m = _DOI_RE.search((text or "").strip())
+    if not m:
+        return ""
+    doi = m.group(0)
+    while doi and doi[-1] in ".,;:)]}'":
+        doi = doi[:-1]
+    return doi if len(doi) > 8 else ""
+
+
+def slugify(title, limit=60):
+    """'Why wombat poop comes out in cubes!' -> 'why-wombat-poop-comes-out-in-cubes' (ASCII, at most 60 characters)."""
+    out = []
+    for ch in (title or "").lower():
+        i = _SLUG_FROM.find(ch)
+        if i >= 0:
+            ch = _SLUG_TO[i]
+        elif ch == "ß":
+            ch = "ss"
+        elif ch == "æ":
+            ch = "ae"
+        elif ch == "œ":
+            ch = "oe"
+        if len(ch) > 1 or ("a" <= ch <= "z") or ("0" <= ch <= "9"):
+            out.append(ch)
+        elif out and out[-1] != "-":
+            out.append("-")
+    slug = "".join(out).strip("-")
+    if len(slug) > limit:
+        cut = slug[:limit]
+        slug = cut.rsplit("-", 1)[0] if "-" in cut[limit // 2:] else cut
+        slug = slug.strip("-")
+    return slug or "story"
 
 
 def is_url(s):
