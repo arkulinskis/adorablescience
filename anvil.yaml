@@ -251,7 +251,10 @@ db_schema:
     indexes: []
     server: full
     title: Users
-metadata: {description: 'Fuzzy-hearted, well-sourced science news written by the community. Anyone can write an article; Lab Directors review every one before it is published.', logo_img: 'asset:favicon.png', title: 'Adorable Science: wholesome, well-sourced science news'}
+metadata:
+  description: "Fuzzy-hearted, well-sourced science news written by the community. Anyone can write an article; Lab Directors review every one before it is published."
+  logo_img: "asset:favicon.png"
+  title: "Adorable Science: wholesome, well-sourced science news"
 name: Adorable Science
 native_deps:
   head_html: |
